@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.1" 
+           metadata-complete="false"
+         xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+    <!--Google Auth Params-->
+    <context-param>
+        <param-name>GG_CLIENT_ID</param-name>
+        <param-value>589640365693-7p2e9n7o5t55abl30itolav861h4c3kv.apps.googleusercontent.com</param-value>
+    </context-param>
+    <context-param>
+        <param-name>GG_CLIENT_SECRET</param-name>
+        <param-value></param-value>
+    </context-param>
+    <context-param>
+        <param-name>GG_CB_URL</param-name>
+        <param-value></param-value>
+    </context-param>
+
+    <context-param>
+        <param-name>GG_CB_URL</param-name>
+        <param-value>http://localhost:8080/mistrium/auth/google/callback</param-value>
+    </context-param>
+    <context-param>
+        <param-name>SUCCESS_URL</param-name>
+        <param-value></param-value>
+    </context-param>
+    <session-config>
+
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
+    
+</web-app>
