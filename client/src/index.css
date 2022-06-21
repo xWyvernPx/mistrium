@@ -1,0 +1,185 @@
+@font-face {
+  font-family: 'Geomanist';
+  src: url('/fonts/Geomanist-Book.otf') format('opentype');
+  font-weight: 400;
+
+}
+@font-face {
+  font-family: 'Geomanist';
+  src: url('/fonts/Geomanist-Bold.otf') format('opentype');
+  font-weight: 600;
+}
+@font-face {
+  font-family: 'Geomanist';
+  src: url('/fonts/Geomanist-Medium.otf') format('opentype');
+  font-weight: 500;
+}
+
+
+body {
+  margin: 0;
+  font-family: 'Geomanist',-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+}
+html{
+  font-size: 10px;
+
+}
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  height: 100%;
+  /* overflow-x: hidden; */
+  /* overflow-y: scroll; */
+  
+}
+body {
+  line-height: 1.5;
+}
+
+input ,select{
+  outline: none;
+  border: none;
+  background-color: transparent;
+}
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+input,
+button,
+textarea,
+select {
+  font: inherit;
+  outline: none;
+  bottom: none;
+}
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+  line-height: 1.5;
+}
+h1 {
+    /* font-size: 4.5rem; */
+    font-size: 8rem;
+    list-style: 7.6rem;
+}
+h2 {
+    font-size: 2.5rem;
+}
+/* small-header */
+h3{
+  font-size: 2.1rem;
+}
+/* large-title */
+h4{
+    font-size: 1.8rem;
+}
+/* small title */
+h5{
+  font-size: 1.5rem;
+
+}
+/* content */
+h6,p{
+  font-size: 1.8rem;
+  font-weight: 400;
+  line-height: 2.8rem;
+}
+ul,li {
+  list-style: none;
+}
+a{
+  text-decoration: none;
+  color : var(--black)
+}
+button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+:root {
+ --black : #000;
+ --black-heading:#292019;
+ --black-title:#3D3D3F;
+ --white : #fff;
+ --primary : #C4A586;
+ --light-primary : #D9AB82;
+ --secondary : #FFF4E8;
+ --secondary-pink : #FCEFE9;
+  --secondary-blue : #E8F5FF;
+  --secondary-orange : #FAE2C8;
+  --secondary-green : #E8F5FF;
+  --accent : #FE8432;
+  --gray : #A9A7A6;
+  --gray-light : #d9d7d5;
+  --content-color : #72696A; 
+  --danger : #FF5252;
+  --success : #4CAF50;
+  --warning : #FFC107;
+  
+  /* typo */
+  --fs-content : 1.8rem;
+  
+  /* orther stuff */
+  --section-x-padding: 7.5rem;
+  --header-height: 8rem;
+  
+  
+}
+@media screen and (max-width: 1279.98px) {
+  html {
+    font-size: 9px;
+  }
+  :root{
+    --section-x-padding: 5rem;
+  }
+
+}
+@media screen and (max-width: 767.98px) {
+html{
+  font-size: 8px;
+}
+:root{
+  --section-x-padding: 4rem;
+}
+}
+
+.sticky {
+  position: -webkit-sticky;
+  position: sticky;
+}
+.disable_scroll{
+  overflow: hidden;
+}
+
+/* animation class  */
+
+.cart_active {
+  right : 0;
+}
+.stop_scroll{
+  overflow: hidden;
+}
