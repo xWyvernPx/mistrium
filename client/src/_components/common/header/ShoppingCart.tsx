@@ -7,6 +7,7 @@ import CartItemCard from "../card/CartItemCard";
 import { cartAPI } from "../../../_api/cart.api";
 import { useRecoilState } from "recoil";
 import cartAtom from "../../../_atom/cartAtom";
+import { useNavigate } from "react-router-dom";
 const ShoppingCartWrapper = styled.div`
   height: 75vh;
   width: 35rem;
@@ -93,7 +94,7 @@ const TotalPriceText = styled.span`
 const ShoppingCart = () => {
   const { toggleCart, isActive } = useCart();
   const [cart, setCart] = useRecoilState(cartAtom);
-
+  const navigate = useNavigate();
   const cartRef = useRef<HTMLDivElement | null>(null);
   useEffect(() => {
     console.log(isActive);
@@ -128,7 +129,6 @@ const ShoppingCart = () => {
         <CartHeadline>Your Cart</CartHeadline>
         <CloseButton
           onClick={() => {
-            console.log("click ne");
             toggleCart();
           }}
         >
@@ -151,7 +151,14 @@ const ShoppingCart = () => {
             )}
           </TotalPriceText>
         </TotalPrice>
-        <CheckoutButton>Checkout</CheckoutButton>
+        <CheckoutButton
+          onClick={() => {
+            toggleCart();
+            navigate("/checkout");
+          }}
+        >
+          Checkout
+        </CheckoutButton>
       </TotalArea>
     </ShoppingCartWrapper>
   );

@@ -41,7 +41,7 @@ html{
 
 html,
 body {
-  height: 100%;
+  height: fit-content;
   /* overflow-x: hidden; */
   /* overflow-y: scroll; */
   
@@ -119,6 +119,10 @@ button {
   background-color: transparent;
   border: none;
   cursor: pointer;
+}
+#root {
+  height: fit-content;
+  /* min-height: 100vh; */
 }
 :root {
  --black : #000;

@@ -4,7 +4,15 @@
       "styled-components",
       {
         "displayName": true,
-        "preprocess": false
+        "preprocess": false,
+        "ssr": false
+      }
+    ],
+    [
+      "babel-plugin-styled-components",
+      {
+        "ssr": false,
+        "displayName": true
       }
     ]
   ]
