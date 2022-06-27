@@ -59,6 +59,7 @@ public class GoogleAuthCallback extends HttpServlet {
         String parse = JWT.decode(jws);
         Cookie cookie = new Cookie("access_token",jws);
         cookie.setPath("/");
+        cookie.setMaxAge(60*60*24);
         response.addCookie(cookie);
         response.sendRedirect("http://localhost:3000");
     }

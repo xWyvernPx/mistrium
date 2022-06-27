@@ -15,4 +15,4 @@ public interface  ICartDetailDAO {
       List<CartDetail> findAllCartDetail(int cartId);
       int getCartDetail(int cart_id,int product_id);
       int getCartDetail (int cart_detail_id);
-}
+} 

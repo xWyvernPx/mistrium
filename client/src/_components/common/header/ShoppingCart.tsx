@@ -97,8 +97,6 @@ const ShoppingCart = () => {
   const navigate = useNavigate();
   const cartRef = useRef<HTMLDivElement | null>(null);
   useEffect(() => {
-    console.log(isActive);
-    console.log(window.document.children);
     if (cartRef.current && isActive) {
       cartRef.current.style.right = "0";
       window.document.children[0].classList.add("stop_scroll");

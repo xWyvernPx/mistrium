@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import styled from "styled-components";
+import useCheckout from "../../_hook/useCheckout";
 import { PrimaryButton } from "../common/button/Button";
 import { TextField } from "../common/form/TextField";
 import PaymentMethodItem, {
@@ -7,6 +8,8 @@ import PaymentMethodItem, {
   CreditCardMethod,
 } from "./PaymentMethodItem";
 
+import { loadStripe } from "@stripe/stripe-js";
+import { checkoutAPI } from "../../_api/checkout.api";
 const FormLayout = styled.div`
   margin-top: 5rem;
   display: flex;
@@ -21,24 +24,40 @@ const CustomButton = styled(PrimaryButton)`
     font-weight: 400;
   }
 `;
+
 const PaymentForm = () => {
-  const [method, setMethod] = useState<{
+  const [methodType, setMethodType] = useState<{
     type: "COD" | "CARD";
-    card_payload?: Object;
   }>({
     type: "COD",
-    card_payload: null,
   });
+  const [clientSecret, setClientSecret] = useState();
+  useEffect(() => {
+    checkoutAPI
+      .createPaymentIntent(10000)
+      .then((clientSecret) => setClientSecret(clientSecret));
+  }, []);
+  useEffect(() => {
+    console.log(clientSecret);
+  }, [clientSecret]);
+  const { setMethod } = useCheckout();
+  useEffect(() => {
+    setMethod(methodType.toString(), null);
+  }, [methodType]);
+
   return (
     <FormLayout>
       <CODMethod
-        active={method.type === "COD"}
-        onClick={() => setMethod({ ...method, type: "COD" })}
+        active={methodType.type === "COD"}
+        onClick={() => setMethodType({ ...methodType, type: "COD" })}
       />
-      <CreditCardMethod
-        active={method.type === "CARD"}
-        onClick={() => setMethod({ ...method, type: "CARD" })}
-      />
+      {clientSecret && (
+        <CreditCardMethod
+          clientSecret={clientSecret}
+          active={methodType.type === "CARD"}
+          onClick={() => setMethodType({ ...methodType, type: "CARD" })}
+        />
+      )}
       <CustomButton>Complete Order</CustomButton>
     </FormLayout>
   );

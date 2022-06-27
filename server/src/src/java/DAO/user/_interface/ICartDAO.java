@@ -18,4 +18,5 @@ public interface ICartDAO {
     Cart removeItem(int cartDetailId,int account_id);
     Cart updateItem(int cartDetailId, int quantity,int account_id);
     int getCartId (int account_id);
+    void clearCart(int cart_id);
 }

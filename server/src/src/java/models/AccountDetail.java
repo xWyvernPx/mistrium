@@ -32,6 +32,11 @@ public class AccountDetail extends Timestamp {
         return name;
     }
 
+  @Override
+  public String toString() {
+    return "AccountDetail{" + "id=" + id + ", name=" + name + ", phone=" + phone + ", gender=" + gender + ", province=" + province + ", district=" + district + ", ward=" + ward + ", account_id=" + account_id + '}';
+  }
+
     public void setName(String name) {
         this.name = name;
     }

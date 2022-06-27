@@ -49,18 +49,11 @@ const CheckoutPage = () => {
       <MainPageLayout>
         <OrderFormArea>
           <CheckoutProgressBar step={stage.step} width={"80%"} />
-          {stage.step === 1 && <FormHeadline>Contact Infomation</FormHeadline>}
           {stage.step === 2 && <FormHeadline>Delivery Service</FormHeadline>}
           {stage.step === 3 && <FormHeadline>Payment Method</FormHeadline>}
-          <CheckoutForm
-            onSubmit={handleSubmit((value) => {
-              console.log(value);
-            })}
-          >
+          <CheckoutForm>
             <FormSlider>
-              {stage.step === 1 && (
-                <FirstForm control={control} register={register} />
-              )}
+              {stage.step === 1 && <FirstForm />}
               {stage.step === 2 && <ShippingForm />}
               {stage.step === 3 && <PaymentForm />}
             </FormSlider>
@@ -118,7 +111,7 @@ const OrderFormArea = styled.div`
   flex-direction: column;
 `;
 const BackButton = styled.button``;
-const CheckoutForm = styled.form`
+const CheckoutForm = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;

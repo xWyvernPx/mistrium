@@ -1,5 +1,6 @@
 import { IconX } from "@tabler/icons";
 import React from "react";
+import { render } from "react-dom";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import modalAtom from "../../../_atom/modalAtom";
@@ -8,14 +9,16 @@ const ModalContainer = styled.div`
   padding: 2rem;
   position: fixed;
   inset: 5%;
-  background-color: red;
+  background-color: var(--white);
   display: flex;
   flex-direction: column;
   align-items: center;
   z-index: 101;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px,
+    rgba(100, 100, 111, 0.5) 0px 0px 0px 20rem;
 `;
 interface ModalProps {
-  FormComponent: React.ReactNode;
+  render: Function;
 }
 const CloseButton = styled.button`
   position: absolute;
@@ -26,16 +29,16 @@ const CloseButton = styled.button`
   }
 `;
 
-const Modal: React.FC<ModalProps> = ({ FormComponent }) => {
+const Modal: React.FC<ModalProps> = ({ render }) => {
   const [modalState, setModalState] = useRecoilState(modalAtom);
   return (
     <ModalContainer>
       <CloseButton
-        onClick={() => setModalState({ ...modalState, isOpen: false })}
+        onClick={() => setModalState({ componentName: "", isOpen: false })}
       >
         <IconX />
       </CloseButton>
-      {FormComponent}
+      <>{render()}</>
     </ModalContainer>
   );
 };

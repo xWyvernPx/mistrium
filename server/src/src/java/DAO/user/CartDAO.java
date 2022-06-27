@@ -117,4 +117,16 @@ public class CartDAO extends AbstractDAO<Cart> implements ICartDAO {
     }
   }
 
+  @Override
+  public void clearCart(int cart_id) {
+    try {
+      String url = "UPDATE  cart_detail \n" +
+"SET active = 0 \n" +
+"WHERE active = 1 AND cart_id = ?";
+      update(url,cart_id);
+    } catch (Exception e) {
+      System.out.println("clear fail");
+    }
+  }
+
 }

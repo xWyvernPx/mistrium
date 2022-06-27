@@ -166,13 +166,25 @@ create table [cart_detail](
     FOREIGN KEY (product_id) REFERENCES product(id),
     FOREIGN KEY (cart_id) REFERENCES cart(id)
 )
+
 create table [order] (
      [id] INT IDENTITY,
     [account_id] int ,
     [ship_date] DATETIME2 DEFAULT NULL,
-    [process] int default 1 check(process = 1 or process = 2 or process = 3),
-    --1:processing, 2: completed, 3: cancel
-    
+    [process] int default 1 check(process = 1 or process = 2 or process = 3 or process = 0),
+    --1:processing,2: charged , 3: completed, 0: cancel
+    --NEW FIELDS 
+    [name] VARCHAR,
+    [phone] VARCHAR(15),
+    [province_id] int ,
+    [district_id] int ,
+    [ward_id]  int ,
+    [details] varchar ,
+    [delivery_type] VARCHAR(50)  default 'GHN',
+    [delivery_cost] bigint ,
+    [method_type] varchar default 'COD',
+    [payment_intent_id] VARCHAR,
+
     [total] int DEFAULT 0 check(total>= 0),
     [active] bit DEFAULT 1,
     [created_at] DATETIME2 DEFAULT GETDATE(),

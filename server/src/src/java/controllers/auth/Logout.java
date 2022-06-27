@@ -39,6 +39,7 @@ public class Logout extends HttpServlet {
         Cookie cookie = new Cookie("access_token","");
         cookie.setPath("/");
         response.addCookie(cookie);
+        response.sendRedirect("http://localhost:3000/");
     }
   }
 

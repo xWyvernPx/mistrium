@@ -16,6 +16,7 @@ import helper.ConnectDb;
 import DAO.user.AccountDAO;
 import DAO.user.CartDAO;
 import DAO.user.CartDetailDAO;
+import DAO.user.OrderDAO;
 import DAO.user._interface.IAccountDAO;
 import helper.pagination.Pagination;
 import java.util.ArrayList;
@@ -46,7 +47,7 @@ public class Test {
 //        System.out.println(product);
 //      }
 //      System.out.println(new ProductService().getAll(pagi));
-System.out.println(new CartDAO().removeItem(1011, 7));
+System.out.println(new AccountService().getMe(7));
       }
     
 }

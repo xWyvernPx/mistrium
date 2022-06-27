@@ -7,6 +7,7 @@ package DAO.product._interface;
 import helper.pagination.Pagination;
 import java.util.List;
 import javax.annotation.ManagedBean;
+import models.CartDetail;
 import models.Product;
 
 /**
@@ -23,4 +24,5 @@ public interface IProductDAO {
     int countByCategory(int category_id);
     int countByCategoryTerm (String category_slug, String term);
     List<Product> searchWithCategory(Pagination pagination, String term , String category_slug);
+    void updateStock(CartDetail cart_detail);
 }

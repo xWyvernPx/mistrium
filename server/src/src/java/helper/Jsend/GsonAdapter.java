@@ -5,6 +5,7 @@
 package helper.Jsend;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 /**
  *
@@ -14,7 +15,7 @@ public class GsonAdapter {
     static private Gson gson = new Gson();
     
     public static Gson getInstance(){
-        return gson!= null ? gson : new Gson();
+        return gson!= null ? gson : new GsonBuilder().create();
     }
     
 }

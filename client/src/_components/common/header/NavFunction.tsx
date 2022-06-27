@@ -2,6 +2,9 @@ import React from "react";
 import styled from "styled-components";
 import { IconSearch, IconUser, IconBasket } from "@tabler/icons";
 import useCart from "../../../_hook/useCart";
+import useAuth from "../../../_hook/useAuth";
+import UserHeader from "./UserHeader";
+import useModal from "../../../_hook/useModal";
 const NavFuncContainer = styled.div`
   display: flex;
   gap: 2rem;
@@ -34,11 +37,13 @@ const CartTag = styled.div`
 `;
 const NavFunction = () => {
   const { toggleCart, cartSize } = useCart();
+  const { user } = useAuth();
+  const { setModalState } = useModal();
   return (
     <NavFuncContainer>
-      <FuncButton>
+      {/* <FuncButton>
         <IconSearch size={30} />
-      </FuncButton>
+      </FuncButton> */}
       <FuncButton
         onClick={() => {
           toggleCart();
@@ -47,13 +52,17 @@ const NavFunction = () => {
         <IconBasket size={30} />
         <CartTag>{cartSize}</CartTag>
       </FuncButton>
-      <FuncButton
-        onClick={() => {
-          window.open("http://localhost:8080/mistrium/auth/google", "_self");
-        }}
-      >
-        <IconUser size={30} />
-      </FuncButton>
+      {!user ? (
+        <FuncButton
+          onClick={() => {
+            setModalState({ isOpen: true, componentName: "LOGIN" });
+          }}
+        >
+          <IconUser size={30} />
+        </FuncButton>
+      ) : (
+        <UserHeader />
+      )}
     </NavFuncContainer>
   );
 };

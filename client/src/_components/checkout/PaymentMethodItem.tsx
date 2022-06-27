@@ -1,5 +1,8 @@
-import React from "react";
+import { Elements, ElementsConsumer } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
+import React, { useCallback, useMemo } from "react";
 import styled from "styled-components";
+import { checkoutAPI } from "../../_api/checkout.api";
 import CreditCardForm from "../common/form/CreditCardForm";
 
 const ItemLayout = styled.div`
@@ -27,6 +30,7 @@ interface PaymentMethodItemProps {
   Form?: React.ReactNode;
   active: boolean;
   onClick?: Function;
+  clientSecret?: string;
 }
 const ItemName = styled.span`
   font-size: 1.8rem;
@@ -59,14 +63,26 @@ export const CODMethod: React.FC<PaymentMethodItemProps> = ({
 export const CreditCardMethod: React.FC<PaymentMethodItemProps> = ({
   active,
   onClick,
+  clientSecret,
 }) => {
+  const pk_key = useMemo(
+    () => checkoutAPI.getPublicKey().then((publicKey: string) => publicKey),
+    []
+  );
+
+  const stripePromise = loadStripe(
+    "pk_test_51KrmUOGni8Rz7mdfmTgCgPvwNmTY2AbSgljmNqS7ihysuRVFvPN3SIrfQX6HwLbV7a0bENSTHZKBWJsMEH7suBgj000BykeHO6"
+  );
+  const creditCardPayment = useCallback(async () => {}, [clientSecret]);
   return (
-    <PaymentMethodItem
-      onClick={onClick}
-      name="Credit Card"
-      active={active}
-      Form={<CreditCardForm />}
-    />
+    <Elements stripe={stripePromise} options={{ clientSecret: clientSecret }}>
+      <PaymentMethodItem
+        onClick={onClick}
+        name="Credit Card"
+        active={active}
+        Form={<CreditCardForm clientSecret={clientSecret} />}
+      />
+    </Elements>
   );
 };
 

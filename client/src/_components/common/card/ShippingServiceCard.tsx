@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import useCheckout from "../../../_hook/useCheckout";
 const CardLayout = styled.div`
   padding: 1rem 0;
   width: 17.5rem;
@@ -31,7 +32,7 @@ const ServiceImgWrapper = styled.div`
 interface CardProps {
   service: string;
   service_img: string;
-  chosen: boolean;
+  chosen?: boolean;
   fee: number;
 }
 const DeliveryPrice = styled.span`
@@ -60,14 +61,15 @@ const ShippingServiceCard: React.FC<CardProps> = ({
   service_img,
   fee,
 }) => {
+  const { setDelivery } = useCheckout();
   return (
-    <CardLayout active={chosen}>
+    <CardLayout active={chosen} onClick={() => setDelivery(service, { fee })}>
       <ServiceImgWrapper>
         <img src={service_img || "https://via.placeholder.com/150"} alt="" />
       </ServiceImgWrapper>
       <DeliveryInformation>
         <DeliveryPrice>{fee || 0}</DeliveryPrice>
-        <DeliveryTime>30 phút</DeliveryTime>
+        <DeliveryTime>2 - 3 days</DeliveryTime>
       </DeliveryInformation>
     </CardLayout>
   );

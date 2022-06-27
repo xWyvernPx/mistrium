@@ -26,7 +26,9 @@ public class JSend<T> {
     public JSendEnum getStatus() {
         return status;
     }
-
+    public static JSend create(JSendEnum status, Object data, String message){
+      return new JSend(status,data,message);
+    }
     public void setStatus(JSendEnum status) {
         this.status = status;
     }

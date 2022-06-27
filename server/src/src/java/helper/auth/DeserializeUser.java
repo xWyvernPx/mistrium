@@ -46,7 +46,6 @@ public class DeserializeUser  {
       String decodedToken = JWT.decode(token);
 //      System.out.println(decodedToken);
       JWTDecode tokenObj = GsonAdapter.getInstance().fromJson(decodedToken, JWTDecode.class);
-      System.out.println(accountService);
       Account acc = accountService.getMe(tokenObj.sub);
       if(acc!=null)req.setAttribute("user", acc);
       else req.setAttribute("user", null);

@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useMemo } from "react";
 import useCart from "../../_hook/useCart";
 import CartItemCard from "../common/card/CartItemCard";
 import styled from "styled-components";
+import useCheckout from "../../_hook/useCheckout";
 
 const OrderReviewArea = styled.div`
   flex: 0 0 40rem;
@@ -58,6 +59,19 @@ const OrderPrice = styled.div`
 `;
 const OrderReview = () => {
   const { cartItems } = useCart();
+  const { checkoutPayload } = useCheckout();
+  const fee = useMemo(
+    () => (checkoutPayload.delivery.metadata as any).fee,
+    [checkoutPayload]
+  );
+  const total = useMemo(
+    () =>
+      cartItems?.reduce(
+        (acc, curr) => acc + curr?.product?.price * curr?.quantity,
+        0
+      ),
+    [cartItems]
+  );
 
   return (
     <OrderReviewArea>
@@ -70,15 +84,15 @@ const OrderReview = () => {
       <OrderReviewInfo>
         <OrderPrice>
           <h2>Total</h2>
-          <span>220</span>
+          <span> {total}</span>
         </OrderPrice>
         <OrderPrice>
           <h2>Shipping Fee</h2>
-          <span>10</span>
+          <span>{fee || 0}</span>
         </OrderPrice>
         <OrderPrice>
           <h2>Subtotal</h2>
-          <span>10</span>
+          <span>{fee ? total + fee : total}</span>
         </OrderPrice>
       </OrderReviewInfo>
     </OrderReviewArea>

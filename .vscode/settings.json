@@ -1,0 +1,8 @@
+{
+  "java.project.referencedLibraries": [
+    "lib/**/*.jar",
+    "c:\\Users\\WyvernP\\Downloads\\gson-2.9.0.jar",
+    "c:\\server\\sqljdbc42.jar",
+    "c:\\Users\\WyvernP\\Downloads\\javax.servlet-api-4.0.1.jar"
+  ]
+}

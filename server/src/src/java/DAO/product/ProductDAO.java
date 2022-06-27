@@ -11,6 +11,7 @@ import models.Product;
 import DAO.AbstractDAO;
 import helper.mapper.implement.ProductMapper;
 import javax.annotation.ManagedBean;
+import models.CartDetail;
 
 /**
  *
@@ -73,5 +74,17 @@ public class ProductDAO extends AbstractDAO<Product>  implements IProductDAO {
      String formatTerm = "%"+term+"%";
     int skip = (pagination.getPage()-1)*pagination.getLimit();   
     return query(sql, new ProductMapper(),category_slug,formatTerm,skip,pagination.getLimit());
+  }
+
+  @Override
+  public void updateStock(CartDetail cart_detail) {
+    try {
+      String sql = "UPDATE product\n" +
+"SET stock = stock - ? \n" +
+"WHERE id = ?";
+      update(sql,cart_detail.getQuantity(),cart_detail.getProduct().getId());
+    } catch (Exception e) {
+      System.out.println("update stock fail");
+    }
   }
 }
