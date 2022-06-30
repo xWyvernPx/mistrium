@@ -20,7 +20,9 @@ public class OrderMapper implements RowMapper<Order> {
   @Override
   public Order map(ResultSet rs) {
     try { 
-      return new Order(rs.getInt("id"),rs.getInt("account_id"),rs.getDate("ship_date"),rs.getInt("process"),rs.getString("name"),rs.getString("phone"),rs.getInt("province_id"),rs.getInt("district_id"),rs.getInt("ward_id"),rs.getString("details"),rs.getString("delivery_type"),rs.getLong("delivery_cost"),rs.getString("method_type"),rs.getString("payment_intent_id"));
+      Order order = new Order(rs.getInt("id"),rs.getInt("account_id"),rs.getDate("ship_date"),rs.getInt("process"),rs.getString("name"),rs.getString("phone"),rs.getInt("province_id"),rs.getInt("district_id"),rs.getInt("ward_id"),rs.getString("details"),rs.getString("delivery_type"),rs.getLong("delivery_cost"),rs.getString("method_type"),rs.getString("payment_intent_id"));
+      order.setCreated_at(rs.getDate("created_at"));
+      return order;
     } catch (SQLException ex) {
       Logger.getLogger(OrderMapper.class.getName()).log(Level.SEVERE, null, ex);
       return null;

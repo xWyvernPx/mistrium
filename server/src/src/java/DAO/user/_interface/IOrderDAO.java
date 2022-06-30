@@ -4,7 +4,10 @@
  */
 package DAO.user._interface;
 
+import helper.pagination.OrderDateFilter;
+import helper.pagination.Pagination;
 import helper.read_request_body.PostOrderBody;
+import java.util.List;
 import models.Order;
 
 /**
@@ -14,5 +17,7 @@ import models.Order;
 public interface IOrderDAO {
   int createOrder(PostOrderBody body , int account_id);
       Order getOrder (int order_id);
-
+  List<Order> getAllOrder(int account_id,Pagination pagination,OrderDateFilter filter,int status);
+  int cancelOrder (int order_id);
+  int reorder(int order_id);
 }

@@ -38,7 +38,7 @@ const UserHeader = () => {
   const [menu, setMenu] = useState(false);
   return (
     <UserAreaWrapper
-      onClick={() => setMenu(true)}
+      onClick={() => setMenu(!menu)}
       onBlur={() => setMenu(false)}
     >
       <AvatarWrapper>
@@ -97,7 +97,7 @@ const UserMenu: React.FC<{ active: boolean }> = ({ active }) => {
   return (
     <UserMenuWrapper active={active}>
       <CustomLink to="/profile">Profile</CustomLink>
-      <CustomLink to="/profile/order">Orders</CustomLink>
+      <CustomLink to="/profile/orders">Orders</CustomLink>
       <LogoutLink
         onClick={() => window.open("http://localhost:8080/mistrium/logout")}
       >

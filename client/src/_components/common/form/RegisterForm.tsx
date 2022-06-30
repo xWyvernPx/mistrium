@@ -72,6 +72,7 @@ const RegisterForm: React.FC<{ handleSwitchForm: Function }> = ({
       <CustomSpan>or</CustomSpan>
       <OauthButtons>
         <OauthButton
+          type="button"
           onClick={() =>
             window.open("http://localhost:8080/mistrium/auth/google", "_self")
           }

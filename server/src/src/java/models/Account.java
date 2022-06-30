@@ -52,7 +52,7 @@ public class Account extends Timestamp {
         this.email = email;
     }
 
-    public boolean isRole() {
+    public boolean getRole() {
         return role;
     }
 

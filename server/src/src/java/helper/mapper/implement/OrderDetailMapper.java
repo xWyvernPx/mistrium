@@ -17,7 +17,7 @@ import models.Product;
  *
  * @author WyvernP
  */
-public class OrderDetaiMapper implements RowMapper<OrderDetail> {
+public class OrderDetailMapper implements RowMapper<OrderDetail> {
 
   @Override
   public OrderDetail map(ResultSet resultSet) {

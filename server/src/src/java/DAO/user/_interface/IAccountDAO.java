@@ -4,6 +4,8 @@
  */
 package DAO.user._interface;
 
+import helper.pagination.Pagination;
+import java.util.List;
 import models.Account;
 
 /**
@@ -14,4 +16,6 @@ public interface IAccountDAO {
     Account findOne(String email);
    int create(String email, String password, int role);
    Account findOneById(int id);
+   List<Account> getAll(Pagination pagination,String term);
+   boolean blockUnblockAccount(int account_id);
 }

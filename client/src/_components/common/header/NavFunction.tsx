@@ -1,16 +1,31 @@
 import React from "react";
 import styled from "styled-components";
-import { IconSearch, IconUser, IconBasket } from "@tabler/icons";
+import {
+  IconSearch,
+  IconUser,
+  IconBasket,
+  IconDeviceAnalytics,
+} from "@tabler/icons";
 import useCart from "../../../_hook/useCart";
 import useAuth from "../../../_hook/useAuth";
 import UserHeader from "./UserHeader";
 import useModal from "../../../_hook/useModal";
+import { Link } from "react-router-dom";
 const NavFuncContainer = styled.div`
   display: flex;
   gap: 2rem;
   align-self: center;
 `;
 const FuncButton = styled.button`
+  background-color: transparent;
+  transform: translateY(0.5rem);
+  position: relative;
+  svg {
+    width: 3rem;
+    stroke-width: 1.5px;
+  }
+`;
+const CustomLink = styled.a`
   background-color: transparent;
   transform: translateY(0.5rem);
   position: relative;
@@ -35,15 +50,17 @@ const CartTag = styled.div`
   right: 0;
   transform: translate(40%, -40%);
 `;
+
 const NavFunction = () => {
   const { toggleCart, cartSize } = useCart();
   const { user } = useAuth();
   const { setModalState } = useModal();
+
   return (
     <NavFuncContainer>
-      {/* <FuncButton>
-        <IconSearch size={30} />
-      </FuncButton> */}
+      <CustomLink href="http://localhost:3000/admin" target={"_self"}>
+        {user?.role && <IconDeviceAnalytics size={30} />}
+      </CustomLink>
       <FuncButton
         onClick={() => {
           toggleCart();

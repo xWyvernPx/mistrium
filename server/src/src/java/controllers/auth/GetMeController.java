@@ -8,6 +8,7 @@ import helper.Jsend.GsonAdapter;
 import helper.Jsend.JSend;
 import helper.Jsend.JSendEnum;
 import helper.auth.AuthHelper;
+import helper.auth.DeserializeUser;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -37,13 +38,15 @@ public class GetMeController extends HttpServlet {
           throws ServletException, IOException {
     response.setContentType("application/json");
     try ( PrintWriter out = response.getWriter()) {
-      AuthHelper.checkAuth(request, response);
+//      AuthHelper.checkAuth(request, response);
+   
+      new DeserializeUser().deserialize(request);
       Account account = (Account)request.getAttribute("user");
       System.out.println(account);
       if(account!= null){
         out.print(new JSend(JSendEnum.SUCCESS,account,"").toJson());
       }else {
-        response.setStatus(403);
+        response.setStatus(200);
         out.print(new JSend(JSendEnum.FAIL,null,"You are not authorized !").toJson());
       }
      

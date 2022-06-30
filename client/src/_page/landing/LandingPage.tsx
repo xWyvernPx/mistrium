@@ -2,20 +2,22 @@ import React from "react";
 
 import styled from "styled-components";
 import Footer from "../../_components/common/footer/Footer";
-import Clients from "../../_components/landing/clients/Clients";
-import Intro from "../../_components/landing/intro/Intro";
+
+const Intro = React.lazy(() => import("../../_components/landing/intro/Intro"));
 import ProductDisplay from "../../_components/landing/product_display/ProductDisplay";
 import Special from "../../_components/landing/special/Special";
 
 const PageLayout = styled.div`
   margin-top: var(--header-height);
 `;
-
+const ClientsLazy = React.lazy(
+  () => import("../../_components/landing/clients/Clients")
+);
 const LandingPage = () => {
   return (
     <PageLayout>
       <Intro />
-      <Clients />
+      <ClientsLazy />
       <Special />
       <ProductDisplay />
     </PageLayout>

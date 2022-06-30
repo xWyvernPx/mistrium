@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 @font-face {
   font-family: 'Geomanist';
   src: url('/fonts/Geomanist-Book.otf') format('opentype');
@@ -26,8 +30,12 @@ body {
   scroll-behavior: smooth;
 }
 html{
+  position: relative;
   font-size: 10px;
 
+}
+.admin {
+  font-size: unset;
 }
 *,
 *::before,

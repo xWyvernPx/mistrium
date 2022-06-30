@@ -32,6 +32,7 @@ public class AuthHelper {
         
       new DeserializeUser().deserialize(req);
       Account acc = (Account)req.getAttribute("user");
+      
       if(acc!= null) return;
       else {
         res.setStatus(403);

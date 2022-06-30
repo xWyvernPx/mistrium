@@ -3,8 +3,8 @@ import { atom } from "recoil";
 const modalAtom = atom({
   key: "modal",
   default: {
-    isOpen: true,
-    componentName: "LOGIN",
+    isOpen: false,
+    componentName: "",
   },
 });
 export default modalAtom;

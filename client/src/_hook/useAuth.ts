@@ -7,13 +7,15 @@ const useAuth = () => {
   const [auth, setAuth] = useRecoilState(authAtom);
   useEffect(() => {
     authAPI.getMe().then((me) => {
-      if (me) setAuth({ isAuthenticated: true, user: me });
-      else setAuth({ isAuthenticated: false, user: null });
+      console.log(me);
+      if (me) setAuth({ isAuthenticated: true, user: me, isLoaded: true });
+      else setAuth({ isAuthenticated: false, user: null, isLoaded: true });
     });
   }, []);
   const logout = useCallback(() => {
     authAPI.logout();
   }, []);
+
   const login = useCallback(async (email: string, password: string) => {
     const res = await authAPI.login(email, password);
     console.log(res);
@@ -31,6 +33,7 @@ const useAuth = () => {
     logout,
     login,
     registerAccount,
+    isLoaded: auth.isLoaded,
   };
 };
 

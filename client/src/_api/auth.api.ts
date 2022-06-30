@@ -4,6 +4,7 @@ export const authAPI = {
   getMe: async () => {
     const url = "/me";
     const res = await axiosClient.get(url);
+    console.log(res.data);
     return res.data;
   },
   logout: async () => {

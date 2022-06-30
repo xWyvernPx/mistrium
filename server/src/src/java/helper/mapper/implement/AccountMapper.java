@@ -20,6 +20,7 @@ public class AccountMapper implements RowMapper<Account> {
             rs.setEmail(resultSet.getString("email"));
             rs.setPassword(resultSet.getString("password"));
             rs.setRole(resultSet.getBoolean("role"));
+            rs.setActive(resultSet.getBoolean("active"));
             return rs;
         } catch (Exception e) {
             return null;

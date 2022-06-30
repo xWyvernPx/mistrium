@@ -5,6 +5,7 @@ const authAtom = atom({
   default: {
     isAuthenticated: false,
     user: null,
+    isLoaded: false,
   },
 });
 export default authAtom;

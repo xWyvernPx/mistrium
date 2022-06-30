@@ -7,9 +7,12 @@ package DAO.user;
 import DAO.AbstractDAO;
 import DAO.user._interface.IOrderDAO;
 import helper.mapper.implement.OrderMapper;
+import helper.pagination.OrderDateFilter;
+import helper.pagination.Pagination;
 import helper.read_request_body.PostOrderBody;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import models.Order;
 
 /**
@@ -37,6 +40,41 @@ public class OrderDAO extends AbstractDAO<Order> implements IOrderDAO {
       return query(sql,new OrderMapper(),order_id).get(0);
     } catch (Exception e) {
       return null;
+    }
+  }
+
+  @Override
+  public List<Order> getAllOrder(int account_id, Pagination pagination, OrderDateFilter filter,int status) {
+    try {
+      String status_range = status == -1 ? "(0,1,2,3)" : status == 0 ? "(0)" :status == 1 ? "(1)" : status == 2 ? "(2)" : "(3)";
+      int skip = (pagination.getPage()-1) * pagination.getLimit();
+      String sql = "SELECT * FROM [order] WHERE account_id = ?  AND created_at Between ? AND ? AND process in "+status_range+" ORDER BY id OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
+      
+    
+      return query(sql,new OrderMapper(),account_id,filter.getFrom(),filter.getTo(),skip,pagination.getLimit());
+    } catch (Exception e) {
+      return null;
+    }
+  }
+
+  @Override
+  public int cancelOrder(int order_id) {
+    try {
+      String sql =  "UPDATE [order] SET process = 0 WHERE id = ?";
+      return update(sql,order_id);
+    } catch (Exception e) {
+      System.out.println("loi tai day " +e.getMessage());
+      return -1;
+    }
+  }
+
+  @Override
+  public int reorder(int order_id) {
+     try {
+      String sql =  "UPDATE [order] SET process = 1 WHERE id = ?";
+      return update(sql,order_id);
+    } catch (Exception e) {
+      return -1;
     }
   }
   

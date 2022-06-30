@@ -85,7 +85,7 @@ const ProductPage = () => {
         <VerticalCategoryCard slug="bench" title="Bench" />
         <VerticalCategoryCard slug="others" title="Others" />
       </CategoryGridWrapper>
-      {modalState.isOpen && <Modal FormComponent={<h1>Hehe</h1>} />}
+      {modalState.isOpen && <Modal render={() => <h1>Hehe</h1>} />}
     </ProductPageContainer>
   );
 };

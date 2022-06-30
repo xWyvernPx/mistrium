@@ -14,6 +14,8 @@ import java.util.ArrayList;
 import javax.inject.Inject;
 import DAO.user._interface.IAccountDAO;
 import helper.mapper.implement.AccountMapper;
+import helper.pagination.Pagination;
+import java.util.List;
 import models.Account;
 
 /**
@@ -70,6 +72,33 @@ public class AccountDAO extends AbstractDAO<Account> implements IAccountDAO {
       return null;
     }
   }
+
+  @Override
+  public List<Account> getAll(Pagination pagi, String term) {
+    try {
+      String termFormat = "%"+term+"%";
+        String sql = "SELECT * FROM account WHERE email like ? ORDER BY ? ? OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
+        return query(sql ,new AccountMapper(),term,pagi.getOrder_by(),pagi.getOrder(),(pagi.getPage()-1)*pagi.getLimit(),pagi.getLimit());
+    } catch (Exception e) {
+      return null;
+    }
+  }
+
+  @Override
+  public boolean blockUnblockAccount(int account_id) {
+      try {
+        Account acc = query("SELECT * FROM account WHERE id = ?",new AccountMapper(),account_id).get(0);
+        if(acc== null ) return false;
+        else {
+          int status = acc.isActive() ? 0 : 1;
+          return 0 <= update("UPDATE account SET active = ? WHERE id = ?",status,account_id);
+        }
+    } catch (Exception e) {
+    return false;
+    }
+  }
+
+  
   
   
 }
