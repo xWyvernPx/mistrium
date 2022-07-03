@@ -1,34 +1,38 @@
-import React, { useEffect, useState } from "react";
-import { Routes, Route, Outlet } from "react-router-dom";
-import { useRecoilState } from "recoil";
+import React from "react";
+import { Outlet, Route, Routes } from "react-router-dom";
 import "./App.css";
-import Footer from "./_components/common/footer/Footer";
-const Heaeder = React.lazy(() => import("./_components/common/header/Heaeder"));
+import AuthFormWrapper from "./_components/common/form/AuthFormWrapper";
+import UpdateCategoryForm from "./_components/admin/form/UpdateCategoryForm";
+import Modal from "./_components/common/modal/Modal";
+import PrivateAdminRoute from "./_helper/PrivateAdminRoute";
+import PrivateRoute from "./_helper/PrivateRoute";
 import useAuth from "./_hook/useAuth";
+import useModal from "./_hook/useModal";
+import AdminAccount from "./_page/admin/account/AdminAccount";
+import AdminCategory from "./_page/admin/category/AdminCategory";
+import Dashboard from "./_page/admin/dashboard/Dashboard";
+import AdminOrderPage from "./_page/admin/order/AdminOrderPage";
 import CheckoutPage from "./_page/checkout/CheckoutPage";
 import LandingPage from "./_page/landing/LandingPage";
 import ProductDisplayPage from "./_page/product/ProductDisplayPage";
 import ProductPage from "./_page/product/ProductPage";
-import modalAtom from "./_atom/modalAtom";
-import Modal from "./_components/common/modal/Modal";
-import useModal from "./_hook/useModal";
-import PrivateRoute from "./_helper/PrivateRoute";
-import AuthFormWrapper from "./_components/common/form/AuthFormWrapper";
-import LoginForm from "./_components/common/form/LoginForm";
-import ProfilePage from "./_page/profile/ProfilePage";
 import OrdersPage from "./_page/profile/OrdersPage";
-import { ToastContainer } from "react-toastify";
-import Loading from "./_components/common/loader/Loading";
-import PrivateAdminRoute from "./_helper/PrivateAdminRoute";
-import AdminLayout from "./_components/common/layout/AdminLayout";
+import ProfilePage from "./_page/profile/ProfilePage";
+import AddCategory from "./_components/admin/form/AddCategory";
+import AdminProduct from "./_page/admin/product/AdminProduct";
+const Heaeder = React.lazy(() => import("./_components/common/header/Heaeder"));
 function App() {
   useAuth();
-  const { componentName, isOpen } = useModal();
+  const { componentName, isOpen, payload } = useModal();
   return (
     <>
       <Routes>
         <Route path="/admin" element={<PrivateAdminRoute />}>
-          <Route path="" element={<AdminLayout />} />
+          <Route path="" element={<Dashboard />} />
+          <Route path="account" element={<AdminAccount />} />
+          <Route path="order" element={<AdminOrderPage />}></Route>
+          <Route path="product" element={<AdminProduct />}></Route>
+          <Route path="category" element={<AdminCategory />}></Route>
         </Route>
         <Route
           path="/"
@@ -59,6 +63,9 @@ function App() {
         <Modal
           render={() => {
             if (componentName === "LOGIN") return <AuthFormWrapper />;
+            else if (componentName === "UPDATE_CATEGORY")
+              return <UpdateCategoryForm category={payload} />;
+            else if (componentName === "ADD_CATEGORY") return <AddCategory />;
           }}
         />
       )}

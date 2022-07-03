@@ -51,7 +51,6 @@ public class Test {
 //         new OrderDAO().getAllOrder(7, pagi, filter,1).forEach(order -> {
 //        System.out.println(order);
 //      });
-    System.out.println(new OrderService().reorder(4));
   }
   catch(Exception e) {
     e.printStackTrace();

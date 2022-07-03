@@ -22,6 +22,11 @@ public class Category extends Timestamp {
         this.slug = slug;
     }
 
+  @Override
+  public String toString() {
+    return "Category{" + "id=" + id + ", name=" + name + ", slug=" + slug + '}';
+  }
+
     public Category(int id, String name, String slug) {
         this.id = id;
         this.name = name;

@@ -16,6 +16,7 @@ const useModal = () => {
   return {
     componentName: modalState.componentName,
     isOpen: modalState.isOpen,
+    payload: modalState.payload,
     setModalState,
   };
 };

@@ -8,20 +8,22 @@ interface TextFieldProps {
 export const TextField = styled.div`
   width: ${(props: TextFieldProps) => props.width || "100%"};
   margin: 1rem 0;
+  /* overflow: hidden; */
+  outline: none !important;
   border: 2px solid
     var(
       ${({ isValid = true }: TextFieldProps) =>
         isValid ? "--gray-light" : "--danger"}
     );
-  border-radius: 5px;
+  border-radius: 5px !important;
   position: relative;
   transition: all 0.2s ease-in-out;
   &:focus-within {
     border-color: var(
       ${({ isValid = true }: TextFieldProps) =>
         isValid ? "--primary" : "--danger"}
-    );
-    box-shadow: 0px 0px 10px -4px var(--primary);
+    ) !important;
+    box-shadow: 0px 0px 10px -4px var(--primary) !important;
   }
   label {
     transition: all 0.2s ease-in-out;

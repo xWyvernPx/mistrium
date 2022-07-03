@@ -89,6 +89,7 @@ const useOrder = () => {
     orderList,
     reorder,
     cancelOrder,
+    pagination,
   };
 };
 

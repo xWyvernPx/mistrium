@@ -26,7 +26,22 @@ public class AuthHelper {
     static String get_token_url = "https://oauth2.googleapis.com/token?grant_type=authorization_code&client_id=589640365693-7p2e9n7o5t55abl30itolav861h4c3kv.apps.googleusercontent.com&client_secret=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&redirect_uri=http://localhost:8080/mistrium/auth/google/callback&code=";
     static HttpURLConnection connection = null;
     static String get_profile = "https://www.googleapis.com/oauth2/v3/userinfo?alt=json&access_token=";
-     
+     public static void checkAuthAdmin (HttpServletRequest req,HttpServletResponse res) {
+  try {
+        
+      new DeserializeUser().deserialize(req);
+      Account acc = (Account)req.getAttribute("user");
+      
+      if(acc!= null && acc.getRole()) return;
+      else {
+        res.setStatus(403);
+        PrintWriter pw = res.getWriter();
+        pw.print(new JSend(JSendEnum.FAIL,null,"You are not authorized to access this resource").toJson()); 
+        pw.close();
+      }
+      } catch (Exception e) {
+       }     
+     }
     static public void checkAuth(HttpServletRequest req,HttpServletResponse res) {
       try {
         

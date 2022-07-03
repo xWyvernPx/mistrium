@@ -138,9 +138,6 @@ function Sidebar({ sidebarOpen, setSidebarOpen }: any) {
               >
                 •••
               </span>
-              <span className="lg:hidden lg:sidebar-expanded:block 2xl:block">
-                Pages
-              </span>
             </h3>
             <ul className="mt-3">
               {/* Dashboard */}
@@ -252,7 +249,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }: any) {
                         <ul className={`pl-9 mt-1 ${!open && "hidden"}`}>
                           <li className="mb-1 last:mb-0">
                             <NavLink
-                              to="/"
+                              to="/admin/account"
                               className="block text-slate-400 hover:text-slate-200 transition duration-150 truncate"
                             >
                               <span className="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
@@ -262,7 +259,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }: any) {
                           </li>
                           <li className="mb-1 last:mb-0">
                             <NavLink
-                              to="/"
+                              to="/admin/order"
                               className="block text-slate-400 hover:text-slate-200 transition duration-150 truncate"
                             >
                               <span className="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
@@ -272,21 +269,21 @@ function Sidebar({ sidebarOpen, setSidebarOpen }: any) {
                           </li>
                           <li className="mb-1 last:mb-0">
                             <NavLink
-                              to="/"
+                              to="/admin/product"
                               className="block text-slate-400 hover:text-slate-200 transition duration-150 truncate"
                             >
                               <span className="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
-                                Invoices
+                                Product
                               </span>
                             </NavLink>
                           </li>
                           <li className="mb-1 last:mb-0">
                             <NavLink
-                              to="/"
+                              to="/admin/category"
                               className="block text-slate-400 hover:text-slate-200 transition duration-150 truncate"
                             >
                               <span className="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
-                                Shop
+                                Category
                               </span>
                             </NavLink>
                           </li>

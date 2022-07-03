@@ -1,6 +1,5 @@
 import { IconX } from "@tabler/icons";
 import React from "react";
-import { render } from "react-dom";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import modalAtom from "../../../_atom/modalAtom";
