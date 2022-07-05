@@ -2,23 +2,62 @@ import { IconFilter, IconPlus } from "@tabler/icons";
 import React, { useState } from "react";
 import Pagination from "../../../_components/admin/common/table/Pagination";
 import Table from "../../../_components/admin/common/table/Table";
+import { AdminTextField } from "../../../_components/admin/form/AdminTextField";
 import OrderTableRow from "../../../_components/admin/order/OrderTableRow";
+import useAdminOrder from "../../../_hook/useAdminOrder";
 import useOrder from "../../../_hook/useOrder";
 
 const AdminOrderPage = () => {
   const [filterOpen, setFilterOpen] = useState(false);
-  const { orderList, setStatus, pagination, setPagination } = useOrder();
+  const {
+    orderList,
+    setStatus,
+    page,
+    limit,
+    total,
+    nextPage,
+    prevPage,
+    setPagination,
+    setFromDateFilter,
+    setToDateFilter,
+  } = useAdminOrder();
   return (
     <div className="w-full h-full">
       <div className="w-full flex justify-between mb-3">
         <span className="text-xl font-medium ">Orders</span>
-        <div className="flex">
-          <input type="date" name="" id="" />
-          <input type="date" name="" id="" />
+        <div className="flex gap-3">
+          <AdminTextField width="100%">
+            <input
+              type="date"
+              onChange={(e) => {
+                const dateValue = e.target.value.split("-").reverse();
+                const temp = dateValue[1];
+                dateValue[1] = dateValue[0];
+                dateValue[0] = temp;
+                setFromDateFilter(dateValue.join("/"));
+              }}
+              placeholder=" "
+            />
+            <label htmlFor="">From</label>
+          </AdminTextField>
+          <AdminTextField width="100%">
+            <input
+              type="date"
+              onChange={(e) => {
+                const dateValue = e.target.value.split("-").reverse();
+                const temp = dateValue[1];
+                dateValue[1] = dateValue[0];
+                dateValue[0] = temp;
+                setToDateFilter(dateValue.join("/"));
+              }}
+              placeholder=" "
+            />
+            <label htmlFor=""> To</label>
+          </AdminTextField>
           <button
             onClick={() => setFilterOpen(!filterOpen)}
             onBlur={() => setFilterOpen(false)}
-            className="border-2 border-indigo-400 border-solid py-0 px-2 rounded-sm hover:border-indigo-500 transition-all relative"
+            className="border-2 border-indigo-400 basis-[fit-content] grow-0 shrink-0 border-solid py-2 px-2 self-center rounded-[5px] h-fit hover:border-indigo-500 transition-all relative"
           >
             <IconFilter />
             {filterOpen && (
@@ -73,15 +112,11 @@ const AdminOrderPage = () => {
         ))}
       </Table>
       <Pagination
-        page={pagination?.page}
-        limit={10}
-        total={20}
-        handleNext={() =>
-          setPagination({ ...pagination, page: pagination?.page + 1 })
-        }
-        handlePrevious={() =>
-          setPagination({ ...pagination, page: pagination?.page - 1 })
-        }
+        page={page}
+        limit={limit}
+        total={total}
+        handleNext={nextPage}
+        handlePrevious={prevPage}
       />
     </div>
   );

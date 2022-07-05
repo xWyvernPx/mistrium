@@ -106,7 +106,6 @@ const Intro = () => {
           <PrimaryOutlineButton>Watch Video</PrimaryOutlineButton>
         </ButtonsWrapper>
       </ContentContainer>
-      {/* TODO : 3D later here */}
     </IntroSection>
   );
 };

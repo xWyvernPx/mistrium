@@ -51,6 +51,7 @@ public class Test {
 //         new OrderDAO().getAllOrder(7, pagi, filter,1).forEach(order -> {
 //        System.out.println(order);
 //      });
+      System.out.println(new AccountService().getAll(pagi, ""));
   }
   catch(Exception e) {
     e.printStackTrace();

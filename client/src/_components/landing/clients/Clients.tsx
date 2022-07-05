@@ -19,6 +19,7 @@ const ClientsLogoDisplay = styled.div`
   flex-wrap: wrap;
   gap: 10rem;
   justify-content: center;
+  align-items: center;
   margin-top: 2rem;
 `;
 const LogoWrapper = styled.div`
@@ -26,30 +27,33 @@ const LogoWrapper = styled.div`
   aspect-ratio: 16/9;
   margin-bottom: 2rem;
   img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+    width: 90%;
+    height: auto;
+    object-fit: contain;
+    object-position: center;
   }
 `;
 const Clients = () => {
   return (
     <ClientsSection>
-      <h3>Some of ours trusted clients</h3>
+      <h3 style={{ fontSize: "2.5rem", marginBottom: "2rem" }}>
+        Some of ours trusted clients
+      </h3>
       <ClientsLogoDisplay>
         <LogoWrapper>
-          <img src="https://source.unsplash.com/random" alt="" />
+          <img src="/imgs/brands/logo.png" alt="" />
         </LogoWrapper>
         <LogoWrapper>
-          <img src="https://source.unsplash.com/random" alt="" />
+          <img src="/imgs/brands/logo-1.png" alt="" />
         </LogoWrapper>
         <LogoWrapper>
-          <img src="https://source.unsplash.com/random" alt="" />
+          <img src="/imgs/brands/logo-2.png" alt="" />
         </LogoWrapper>
         <LogoWrapper>
-          <img src="https://source.unsplash.com/random" alt="" />
+          <img src="/imgs/brands/logo-3.png" alt="" />
         </LogoWrapper>
         <LogoWrapper>
-          <img src="https://source.unsplash.com/random" alt="" />
+          <img src="/imgs/brands/logo-4.png" alt="" />
         </LogoWrapper>
       </ClientsLogoDisplay>
     </ClientsSection>

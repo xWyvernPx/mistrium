@@ -1,6 +1,13 @@
 import React, { useCallback, useEffect, useState } from "react";
 import ProductAPI from "../_api/product.api";
-
+interface Product {
+  name?: string;
+  stock?: number;
+  price?: number;
+  desc?: string;
+  thumbnail?: string;
+  category_id?: number;
+}
 const useProduct = (category_slug: string) => {
   const [products, setProduct] = React.useState<any>({
     data: [],
@@ -46,10 +53,14 @@ const useProduct = (category_slug: string) => {
       pagination: response.data.pagination,
     });
   }, []);
+  const addNewProduct = useCallback(async (product: Product) => {
+    const res = await ProductAPI.addNewProduct(product);
+  }, []);
   return {
     products,
     loadMore,
     setTerm,
+    addNewProduct,
     term,
   };
 };

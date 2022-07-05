@@ -12,6 +12,7 @@ import DAO.user.OrderDetailDAO;
 import DAO.user._interface.ICartDAO;
 import DAO.user._interface.IOrderDAO;
 import DAO.user._interface.IOrderDetailDAO;
+import helper.list_return.ReturnList;
 import helper.pagination.OrderDateFilter;
 import helper.pagination.Pagination;
 import helper.read_request_body.PostOrderBody;
@@ -51,12 +52,29 @@ public class OrderService implements IOrderService {
   @Override
   public List<Order> getAllOrder(int account_id, Pagination pagination, OrderDateFilter filter, int status) {
     try {
-      List<Order> orders = orderDAO.getAllOrder(account_id, pagination, filter, status);
+      List<Order> orders = orderDAO.getAllOrderByUser(account_id, pagination, filter, status);
       orders.forEach(order->{
         List<OrderDetail> details = orderDetailDAO.findAllOrderDetails(order.getId());
         order.setOrder_details(details);
       });
       return orders;
+    } catch (Exception e) {
+      System.out.println(e);
+      return null;
+    }
+  }
+
+  @Override
+  public ReturnList<Order> getAllOrderAdmin(Pagination pagination, OrderDateFilter filter, int status) {
+   try {
+      List<Order> orders = orderDAO.getAll(pagination, filter, status);
+      orders.forEach(order->{
+        List<OrderDetail> details = orderDetailDAO.findAllOrderDetails(order.getId());
+        order.setOrder_details(details);
+      });
+      int count = orderDAO.countAll(pagination, filter, status);
+      pagination.setTotal(count);
+      return new ReturnList(orders,pagination);
     } catch (Exception e) {
       System.out.println(e);
       return null;

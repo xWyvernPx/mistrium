@@ -18,4 +18,5 @@ public interface IAccountDAO {
    Account findOneById(int id);
    List<Account> getAll(Pagination pagination,String term);
    boolean blockUnblockAccount(int account_id);
+   int countAll(Pagination pagination, String term);
 }

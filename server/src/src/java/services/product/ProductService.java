@@ -85,5 +85,20 @@ return null;
       return null;
     }
   }
+
+  @Override
+  public int addNewProduct(Product product, int account_id) {
+    return productDAO.addNewProduct(product, account_id);
+  }
+
+  @Override
+  public boolean updateProduct(Product product, int account_id) {
+  return productDAO.updateProduct(product, account_id);
+  }
+
+  @Override
+  public boolean toggleActive(int product_id) {
+    return productDAO.toggleActive(product_id);
+  }
   
 }

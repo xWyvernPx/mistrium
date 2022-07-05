@@ -1,4 +1,5 @@
 import React from "react";
+import StatusTag from "../common/tag/StatusTag";
 interface RowProps {
   order: {
     id: number;
@@ -51,22 +52,26 @@ const OrderTableRow: React.FC<RowProps> = ({ order }) => {
         <div className="text-center">{order?.phone}</div>
       </td>
       <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-        <div className="text-left font-medium text-green-500">
-          {order?.process}
+        <div className="text-center font-medium ">
+          {order?.process === 0 ? (
+            <StatusTag color="danger" name="Cancel" />
+          ) : order?.process === 3 ? (
+            <StatusTag name="Done" color="success" />
+          ) : order?.process === 1 ? (
+            <StatusTag name="Processing" color="warning" />
+          ) : (
+            <StatusTag name="Paid" color="warning" />
+          )}
         </div>
       </td>
       <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-        <div className="text-left font-medium text-green-500">
-          {order?.delivery_type}
-        </div>
+        <div className="text-left font-medium ">{order?.delivery_type}</div>
       </td>
       <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-        <div className="text-left font-medium text-green-500">
-          {order?.created_at}
-        </div>
+        <div className="text-left font-medium ">{order?.created_at}</div>
       </td>
       <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-        <div className="text-left font-medium text-green-500">
+        <div className="text-left font-medium ">
           {order?.order_details?.reduce((prev, order_detail) => {
             prev += order_detail?.quantity * order_detail?.product?.price;
             return prev;
@@ -75,7 +80,6 @@ const OrderTableRow: React.FC<RowProps> = ({ order }) => {
       </td>
       <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
         <div className="text-left font-medium text-green-500">
-          {/* TODO : status tag */}
           {order?.payment_intent_id}
         </div>
       </td>

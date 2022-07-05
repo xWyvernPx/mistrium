@@ -51,4 +51,10 @@ public class JSend<T> {
   public  String toJson(){
         return GsonAdapter.getInstance().toJson(this,JSend.class);
     }
+
+  @Override
+  public String toString() {
+    return GsonAdapter.getInstance().toJson(this,JSend.class);
+  }
+  
 }

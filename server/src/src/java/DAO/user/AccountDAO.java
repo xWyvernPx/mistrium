@@ -77,8 +77,8 @@ public class AccountDAO extends AbstractDAO<Account> implements IAccountDAO {
   public List<Account> getAll(Pagination pagi, String term) {
     try {
       String termFormat = "%"+term+"%";
-        String sql = "SELECT * FROM account WHERE email like ? ORDER BY ? ? OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
-        return query(sql ,new AccountMapper(),term,pagi.getOrder_by(),pagi.getOrder(),(pagi.getPage()-1)*pagi.getLimit(),pagi.getLimit());
+        String sql = "SELECT * FROM account WHERE email like ? ORDER BY id  asc  OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
+        return query(sql ,new AccountMapper(),termFormat,(pagi.getPage()-1)*pagi.getLimit(),pagi.getLimit());
     } catch (Exception e) {
       return null;
     }
@@ -95,6 +95,18 @@ public class AccountDAO extends AbstractDAO<Account> implements IAccountDAO {
         }
     } catch (Exception e) {
     return false;
+    }
+  }
+
+  @Override
+  public int countAll(Pagination pagination, String term) {
+    try {
+      String termFormat = "%"+term+"%";
+      String sql =
+              "SELECT count(*) from [account] WHERE email like ? ";
+              return queryScalar(sql, termFormat);
+    } catch (Exception e) {
+      return -1;
     }
   }
 

@@ -18,4 +18,7 @@ public interface IProductService {
     ReturnList<Product> search(Pagination pagination,String term);
     ReturnList<Product> getByCategory(Pagination pagination,int category_id);
     ReturnList<Product> searchWithCategory(Pagination pagination,String term,String category_slug);
+    int addNewProduct (Product product , int account_id);
+    boolean updateProduct (Product product,int account_id);
+    boolean toggleActive (int product_id);
 }

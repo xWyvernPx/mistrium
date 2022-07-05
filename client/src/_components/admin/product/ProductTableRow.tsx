@@ -1,6 +1,7 @@
-import { IconEye } from "@tabler/icons";
+import { IconDots, IconEye } from "@tabler/icons";
 import React, { useEffect, useState } from "react";
 import { categoryAPI } from "../../../_api/category.api";
+import useModal from "../../../_hook/useModal";
 import StatusTag from "../common/tag/StatusTag";
 interface RowProps {
   product: {
@@ -13,9 +14,16 @@ interface RowProps {
     category_id: number;
     active: boolean;
   };
+  handleToggle?: Function;
+  handleUpdate?: Function;
 }
-const ProductTableRow: React.FC<RowProps> = ({ product }) => {
+const ProductTableRow: React.FC<RowProps> = ({
+  product,
+  handleToggle,
+  handleUpdate,
+}) => {
   const [category, setCate] = useState<any>();
+  const { setModalState } = useModal();
   useEffect(() => {
     if (product) {
       categoryAPI
@@ -23,7 +31,7 @@ const ProductTableRow: React.FC<RowProps> = ({ product }) => {
         .then((data) => setCate(data));
     }
   }, [product]);
-
+  const [isOpen, setOpen] = useState<boolean>(false);
   return (
     <tr className="">
       <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap w-px">
@@ -61,8 +69,17 @@ const ProductTableRow: React.FC<RowProps> = ({ product }) => {
       </td>
       <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
         <div className="text-left ">
-          <button className="flex gap-1 text-[color:var(--gray)] hover:text-indigo-400">
-            overview
+          <button
+            onClick={() =>
+              setModalState({
+                componentName: "PREVIEW_PRODUCT_DESCRIPTION",
+                isOpen: true,
+                payload: product?.desc,
+              })
+            }
+            className="flex gap-1 text-[color:var(--gray)] items-center hover:text-indigo-400"
+          >
+            preview
             <IconEye />
           </button>
         </div>
@@ -78,6 +95,41 @@ const ProductTableRow: React.FC<RowProps> = ({ product }) => {
       </td>
       <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
         <div className="text-left">{category?.name || "Unknown"}</div>
+      </td>
+      <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+        <div className="text-left relative">
+          <button
+            onClick={() => setOpen(!isOpen)}
+            onBlur={() => setOpen(false)}
+          >
+            <IconDots />
+            {isOpen && (
+              <div className="absolute z-20 py-[1rem] px-[2rem] left-0 bottom-0 drop-shadow-md bg-[color:var(--white)] -translate-x-full translate-y-full rounded-[5px] flex  flex-col">
+                <span
+                  className="cursor-pointer uppercase text-indigo-400 hover:text-indigo-500"
+                  onClick={() => {
+                    console.log("click");
+                    setModalState({
+                      componentName: "UPDATE_PRODUCT",
+                      isOpen: true,
+                      payload: { product, handleUpdate },
+                    });
+                  }}
+                >
+                  Update
+                </span>
+                <span
+                  className="cursor-pointer uppercase text-indigo-400 hover:text-indigo-500"
+                  onClick={() => {
+                    handleToggle(product?.id);
+                  }}
+                >
+                  {product?.active ? "Inactive" : "Active"}
+                </span>
+              </div>
+            )}
+          </button>
+        </div>
       </td>
     </tr>
   );

@@ -16,9 +16,15 @@ interface Account {
     active: boolean;
     created_at: Date;
   };
+  functions: {
+    toggleActive: Function;
+  };
 }
 
-const AccountTableRow: React.FC<Account> = ({ account }) => {
+const AccountTableRow: React.FC<Account> = ({
+  account,
+  functions: { toggleActive },
+}) => {
   const [isOpen, setOpen] = useState(false);
   return (
     <tr className="">
@@ -34,18 +40,7 @@ const AccountTableRow: React.FC<Account> = ({ account }) => {
           </label>
         </div>
       </td>
-      {/* <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-        <div className="flex items-center relative">
-          <button>
-            <svg
-              className="w-4 h-4 shrink-0 fill-current text-yellow-500"
-              viewBox="0 0 16 16"
-            >
-              <path d="M8 0L6 5.934H0l4.89 3.954L2.968 16 8 12.223 13.032 16 11.11 9.888 16 5.934h-6L8 0z" />
-            </svg>
-          </button>
-        </div>
-      </td> */}
+
       <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
         <div className="flex items-center">
           <div className="w-10 h-10 shrink-0 mr-2 sm:mr-3">
@@ -101,7 +96,10 @@ const AccountTableRow: React.FC<Account> = ({ account }) => {
           <IconDots />
           {isOpen && (
             <div className="absolute bottom-0 right-0 translate-x-1/2 bg-white py-2 px-4 drop-shadow-lg rounded-md">
-              <span className="hover:text-indigo-500 transition-colors">
+              <span
+                onClick={() => toggleActive()}
+                className="hover:text-indigo-500 transition-colors"
+              >
                 {account?.active ? "Block" : "Unblock"}
               </span>
             </div>

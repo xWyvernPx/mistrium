@@ -25,4 +25,7 @@ public interface IProductDAO {
     int countByCategoryTerm (String category_slug, String term);
     List<Product> searchWithCategory(Pagination pagination, String term , String category_slug);
     void updateStock(CartDetail cart_detail);
+    int addNewProduct (Product product,int account_id);
+    boolean updateProduct (Product product,int account_id);
+    boolean toggleActive (int product_id);
 }

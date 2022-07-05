@@ -131,6 +131,7 @@ public class AbstractDAO<T> implements GenericDAO<T> {
 
       }
     } catch (Exception e) {
+      System.out.println(e);
       return -1;
     } finally {
       try {
@@ -163,7 +164,6 @@ public class AbstractDAO<T> implements GenericDAO<T> {
         if(rs.next())
           return rs.getInt(1);
         else return -1;
-
       }
     } catch (Exception e) {
       System.out.println(e);

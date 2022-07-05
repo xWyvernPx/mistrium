@@ -24,6 +24,25 @@ const orderApi = {
     });
     return res.data;
   },
+  getAllAdmin: async (
+    pagination: Pagination,
+    filter: DateFilter,
+    statusFilter: number
+  ) => {
+    const url = "/order/all/admin";
+    const res = await axiosClient.get(url, {
+      params: {
+        limit: pagination.limit,
+        page: pagination.page,
+        order: pagination.order,
+        order_by: pagination.order_by,
+        from: filter.from,
+        to: filter.to,
+        status: statusFilter,
+      },
+    });
+    return res.data;
+  },
   cancelOrder: async (order_id: number) => {
     const url = "/order/cancel?order_id=" + order_id;
     const res = await axiosClient.post(url);

@@ -17,7 +17,9 @@ import models.Order;
 public interface IOrderDAO {
   int createOrder(PostOrderBody body , int account_id);
       Order getOrder (int order_id);
-  List<Order> getAllOrder(int account_id,Pagination pagination,OrderDateFilter filter,int status);
+  List<Order> getAllOrderByUser(int account_id,Pagination pagination,OrderDateFilter filter,int status);
   int cancelOrder (int order_id);
   int reorder(int order_id);
+  List<Order> getAll(Pagination pagination,OrderDateFilter filter,int status);
+  int countAll (Pagination pagination,OrderDateFilter filter,int status);
 }

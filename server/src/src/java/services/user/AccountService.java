@@ -14,6 +14,9 @@ import com.stripe.Stripe;
 import com.stripe.exception.StripeException;
 import com.stripe.model.Customer;
 import com.stripe.param.CustomerCreateParams;
+import helper.list_return.ReturnList;
+import helper.pagination.Pagination;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.ManagedBean;
@@ -93,6 +96,24 @@ public class AccountService implements IAccountService {
     @Override
   public Account getMe(String email) {
     return accountDAO.findOne(email);
+  }
+
+  @Override
+  public ReturnList<Account> getAll(Pagination pagination, String term) {
+    List<Account> accounts = accountDAO.getAll(pagination, term);
+    accounts.forEach(account -> {
+        account.setAccount_charge(accountChargeDAO.getOne(account.getId()));
+        account.setAccount_detail(accountDetailDAO.getDetail(account.getId()));
+    });
+    int count = accountDAO.countAll(pagination, term);
+    pagination.setTotal(count);
+    pagination.setTotal_pages(count/pagination.getLimit()+1);
+    return new ReturnList(accounts,pagination);
+  }
+
+  @Override
+  public boolean blockUnblockAccount(int account_id) {
+    return accountDAO.blockUnblockAccount(account_id);
   }
 }
  

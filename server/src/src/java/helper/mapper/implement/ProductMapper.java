@@ -17,7 +17,9 @@ public class ProductMapper implements RowMapper<Product> {
   @Override
   public Product map(ResultSet resultSet) {
     try {
-      return new Product(resultSet.getInt("id"), resultSet.getString("name"), resultSet.getString("desc"), resultSet.getInt("price"), resultSet.getInt("stock"), resultSet.getString("thumbnail"), resultSet.getInt("category_id"));
+      Product product= new Product(resultSet.getInt("id"), resultSet.getString("name"), resultSet.getString("desc"), resultSet.getInt("price"), resultSet.getInt("stock"), resultSet.getString("thumbnail"), resultSet.getInt("category_id"));
+      product.setActive(resultSet.getBoolean("active"));
+      return product;
     } catch (Exception e) {
       return null;
     }

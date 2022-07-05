@@ -4,6 +4,9 @@
  */
 package services.user._interface;
 
+import helper.list_return.ReturnList;
+import helper.pagination.Pagination;
+import java.util.List;
 import javax.annotation.ManagedBean;
 import models.Account;
 
@@ -17,4 +20,6 @@ public interface IAccountService {
     Account register(String email,String password,boolean role);
     Account getMe(int id);
     Account getMe(String email);
+ ReturnList<Account> getAll(Pagination pagination,String term);
+   boolean blockUnblockAccount(int account_id);
 }

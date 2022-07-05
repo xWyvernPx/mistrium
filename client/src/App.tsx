@@ -20,6 +20,9 @@ import OrdersPage from "./_page/profile/OrdersPage";
 import ProfilePage from "./_page/profile/ProfilePage";
 import AddCategory from "./_components/admin/form/AddCategory";
 import AdminProduct from "./_page/admin/product/AdminProduct";
+import AddProduct from "./_components/admin/form/AddProduct";
+import ProductDescriptionView from "./_components/admin/form/ProductDescriptionView";
+import UpdateProduct from "./_components/admin/form/UpdateProduct";
 const Heaeder = React.lazy(() => import("./_components/common/header/Heaeder"));
 function App() {
   useAuth();
@@ -66,6 +69,12 @@ function App() {
             else if (componentName === "UPDATE_CATEGORY")
               return <UpdateCategoryForm category={payload} />;
             else if (componentName === "ADD_CATEGORY") return <AddCategory />;
+            else if (componentName === "ADD_PRODUCT")
+              return <AddProduct handleAdd={payload} />;
+            else if (componentName === "PREVIEW_PRODUCT_DESCRIPTION")
+              return <ProductDescriptionView />;
+            else if (componentName === "UPDATE_PRODUCT")
+              return <UpdateProduct payload={payload} />;
           }}
         />
       )}

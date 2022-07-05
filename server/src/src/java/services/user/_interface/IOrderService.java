@@ -4,6 +4,7 @@
  */
 package services.user._interface;
 
+import helper.list_return.ReturnList;
 import helper.pagination.OrderDateFilter;
 import helper.pagination.Pagination;
 import helper.read_request_body.PostOrderBody;
@@ -19,4 +20,5 @@ public interface IOrderService {
   List<Order> getAllOrder (int account_id,Pagination pagination ,OrderDateFilter filter, int status);
   int cancelOrder (int order_id);
   int reorder (int order_id);
+  ReturnList<Order> getAllOrderAdmin (Pagination pagination ,OrderDateFilter filter, int status);
 }

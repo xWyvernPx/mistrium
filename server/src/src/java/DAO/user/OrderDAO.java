@@ -44,11 +44,11 @@ public class OrderDAO extends AbstractDAO<Order> implements IOrderDAO {
   }
 
   @Override
-  public List<Order> getAllOrder(int account_id, Pagination pagination, OrderDateFilter filter,int status) {
+  public List<Order> getAllOrderByUser(int account_id, Pagination pagination, OrderDateFilter filter,int status) {
     try {
       String status_range = status == -1 ? "(0,1,2,3)" : status == 0 ? "(0)" :status == 1 ? "(1)" : status == 2 ? "(2)" : "(3)";
       int skip = (pagination.getPage()-1) * pagination.getLimit();
-      String sql = "SELECT * FROM [order] WHERE account_id = ?  AND created_at Between ? AND ? AND process in "+status_range+" ORDER BY id OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
+      String sql = "SELECT * FROM [order] WHERE account_id = ?  AND created_at Between ? AND ? AND process in "+status_range+" ORDER BY created_at desc OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
       
     
       return query(sql,new OrderMapper(),account_id,filter.getFrom(),filter.getTo(),skip,pagination.getLimit());
@@ -73,6 +73,32 @@ public class OrderDAO extends AbstractDAO<Order> implements IOrderDAO {
      try {
       String sql =  "UPDATE [order] SET process = 1 WHERE id = ?";
       return update(sql,order_id);
+    } catch (Exception e) {
+      return -1;
+    }
+  }
+
+  @Override
+  public List<Order> getAll(Pagination pagination, OrderDateFilter filter, int status) {
+try {
+      String status_range = status == -1 ? "(0,1,2,3)" : status == 0 ? "(0)" :status == 1 ? "(1)" : status == 2 ? "(2)" : "(3)";
+      int skip = (pagination.getPage()-1) * pagination.getLimit();
+      String sql = "SELECT * FROM [order] WHERE  created_at Between ? AND ? AND process in "+status_range+" ORDER BY created_at desc OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
+      
+    
+      return query(sql,new OrderMapper(),filter.getFrom(),filter.getTo(),skip,pagination.getLimit());
+    } catch (Exception e) {
+      return null;
+    }   
+  }
+
+  @Override
+  public int countAll(Pagination pagination, OrderDateFilter filter, int status) {
+    try {
+       String status_range = status == -1 ? "(0,1,2,3)" : status == 0 ? "(0)" :status == 1 ? "(1)" : status == 2 ? "(2)" : "(3)";
+      int skip = (pagination.getPage()-1) * pagination.getLimit();
+      String sql = "SELECT COUNT(*) FROM [order] WHERE  created_at Between ? AND ? AND process in "+status_range+"" ;
+      return queryScalar(sql,filter.getFrom(),filter.getTo());
     } catch (Exception e) {
       return -1;
     }

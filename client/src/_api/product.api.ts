@@ -8,6 +8,14 @@ export interface Pagination {
   order_by: string | "id";
   order: String | "asc";
 }
+interface Product {
+  name?: string;
+  stock?: number;
+  price?: number;
+  desc?: string;
+  thumbnail?: string;
+  category_id?: number;
+}
 const ProductAPI = {
   getAll: async (pagination: Pagination) => {
     const { page, limit, order, order_by } = pagination;
@@ -33,6 +41,21 @@ const ProductAPI = {
     if (response.status === "SUCCESS") {
       return response.data;
     } else return null;
+  },
+  addNewProduct: async (product: Product) => {
+    const url = "/product/add";
+    const res = await axiosClient.post(url, { ...product });
+    return res;
+  },
+  updateProduct: async (product: Product) => {
+    const url = "/product/update";
+    const res = await axiosClient.post(url, { ...product });
+    return res;
+  },
+  toggleActive: async (product_id: number) => {
+    const url = "/product/toggle?product_id=" + product_id;
+    const res = await axiosClient.post(url);
+    return res;
   },
 };
 export default ProductAPI;

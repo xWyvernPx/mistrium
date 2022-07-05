@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { IconArrowRight } from "@tabler/icons";
 import LandingProductCard from "../../common/card/LandingProductCard";
 import { useNavigate } from "react-router-dom";
+import useProduct from "../../../_hook/useProduct";
 const ProductDisplaySection = styled.div`
   margin-top: 10rem;
   padding: 2rem var(--section-x-padding);
@@ -63,27 +64,28 @@ const ProductDisplayWrapper = styled.div`
 const CateList = [
   {
     title: "All",
-    value: "ALL",
+    value: "all",
   },
   {
     title: "Bed",
-    value: "BED",
+    value: "bed",
   },
   {
     title: "Chair",
-    value: "CHAIR",
+    value: "chair",
   },
   {
     title: "Light",
-    value: "LIGHT",
+    value: "light",
   },
 ];
-const ProductDisplay = () => {
+const ProductDisplay: React.FC = () => {
   // prototype :  "ALL", "CHAIR", "TABLE"
-  const [type, setType] = useState<String>("ALL");
+  const [type, setType] = useState<string>("ALL");
   useEffect(() => {
     // TODO : get product list from server on type change
   }, [type]);
+  const { products } = useProduct(type);
   const nav = useNavigate();
   return (
     <ProductDisplaySection>
@@ -107,12 +109,9 @@ const ProductDisplay = () => {
         ))}
       </CategoryListWrapper>
       <ProductDisplayWrapper>
-        <LandingProductCard />
-        <LandingProductCard />
-        <LandingProductCard />
-        <LandingProductCard />
-        <LandingProductCard />
-        <LandingProductCard />
+        {products?.data?.slice(0, 6).map((product: any) => (
+          <LandingProductCard />
+        ))}
       </ProductDisplayWrapper>
     </ProductDisplaySection>
   );

@@ -87,4 +87,41 @@ public class ProductDAO extends AbstractDAO<Product>  implements IProductDAO {
       System.out.println("update stock fail");
     }
   }
+
+  @Override
+  public int addNewProduct(Product product, int account_id) {
+    try {
+      String sql = "insert into product (name , stock ,price ,[desc],thumbnail,category_id,modified_by)\n" +
+"values (?,?,?,?,?,?,?)";
+      return insert(sql,product.getName(),product.getStock(),product.getPrice(),product.getDesc(),product.getThumbnail(),product.getCategory_id(),account_id);
+    } catch (Exception e) {
+      return -1;
+    }
+  }
+
+  @Override
+  public boolean updateProduct(Product prod, int account_id) {
+    try {
+      String sql = "UPDATE product SET name = ? , stock = ? , price = ? , thumbnail = ? , [desc] =  ?  WHERE id = ?";
+      int result = update(sql,prod.getName(),prod.getStock(),prod.getPrice(),prod.getThumbnail(),prod.getDesc(),prod.getId());
+      return result > 0 ;
+    } catch (Exception e) {
+      return false;
+    }
+  }
+
+  @Override
+  public boolean toggleActive(int product_id) {
+    try {
+      Product prod = this.findOneById(product_id);
+      int activeSet = prod.isActive() ? 0 : 1 ;
+      System.out.println(activeSet);
+        String sql = "UPDATE product SET active = ? WHERE id = ? ";
+        int result = update (sql,activeSet,product_id);
+        return result > 0;
+    } catch (Exception e) {
+      return false;
+    }
+  }
+  
 }
