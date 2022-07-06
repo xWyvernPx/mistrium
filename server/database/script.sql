@@ -174,18 +174,18 @@ create table [order] (
     [process] int default 1 check(process = 1 or process = 2 or process = 3 or process = 0),
     --1:processing,2: charged , 3: completed, 0: cancel
     --NEW FIELDS 
-    [name] VARCHAR,
+    [name] VARCHAR(100),
     [phone] VARCHAR(15),
     [province_id] int ,
     [district_id] int ,
     [ward_id]  int ,
-    [details] varchar ,
+    [details] varchar(255) ,
     [delivery_type] VARCHAR(50)  default 'GHN',
     [delivery_cost] bigint ,
-    [method_type] varchar default 'COD',
-    [payment_intent_id] VARCHAR,
+    [method_type] varchar(10) default 'COD',
+    [payment_intent_id] VARCHAR(100),
 
-    [total] int DEFAULT 0 check(total>= 0),
+    -- [total] int DEFAULT 0 check(total>= 0),
     [active] bit DEFAULT 1,
     [created_at] DATETIME2 DEFAULT GETDATE(),
     [modified_at] DATETIME2 DEFAULT NULL,
@@ -195,10 +195,11 @@ create table [order] (
     FOREIGN KEY (modified_by) REFERENCES account(id),
     FOREIGN KEY (account_id) REFERENCES account(id)
 )
+
 create table [order_detail] (
     [id] INT IDENTITY,
     [product_id] int ,
-    [cart_id] int,
+    [order_id] int,
     [quantity] int default 0 check(quantity >=0),
     [active] bit DEFAULT 1,
     [created_at] DATETIME2 DEFAULT GETDATE(),
@@ -208,7 +209,7 @@ create table [order_detail] (
     PRIMARY KEY (id),
     FOREIGN KEY (modified_by) REFERENCES account(id),
     FOREIGN KEY (product_id) REFERENCES product(id),
-    FOREIGN KEY (cart_id) REFERENCES cart(id)
+    FOREIGN KEY (order_id) REFERENCES [order](id)
 )
 
 -- TODO : Category ->  thumbnail

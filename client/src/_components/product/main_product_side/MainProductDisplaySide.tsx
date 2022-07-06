@@ -5,6 +5,7 @@ import useProduct from "../../../_hook/useProduct";
 import LandingProductCard from "../../common/card/LandingProductCard";
 import ProductCard from "../../common/card/ProductCard";
 import { debounce } from "lodash";
+import { PrimaryButton } from "../../common/button/Button";
 const MainSideWrapper = styled.div`
   flex: 1 1 auto;
 `;
@@ -113,5 +114,8 @@ const MainProductDisplaySide: React.FC<{ slug: string }> = ({ slug }) => {
     </MainSideWrapper>
   );
 };
-const LoadmoreButton = styled.button``;
+const LoadmoreButton = styled(PrimaryButton)`
+  border-radius: 5px;
+  position: relative;
+`;
 export default MainProductDisplaySide;
