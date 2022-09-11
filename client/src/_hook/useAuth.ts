@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect } from "react";
+import { toast } from "react-toastify";
 import { useRecoilState } from "recoil";
 import { authAPI } from "../_api/auth.api";
 import authAtom from "../_atom/authAtom";
@@ -17,12 +18,26 @@ const useAuth = () => {
   }, []);
 
   const login = useCallback(async (email: string, password: string) => {
-    const res = await authAPI.login(email, password);
+    const res: any = await authAPI.login(email, password);
+    if (res.status === "SUCCESS") {
+      // toast.success("Successfully registered account");
+      window.location.reload();
+    } else {
+      toast.error(res.message);
+    }
+
     console.log(res);
   }, []);
   const registerAccount = useCallback(
     async (email: string, password: string) => {
-      const res = await authAPI.register(email, password);
+      const res: any = await authAPI.register(email, password);
+
+      if (res.status === "SUCCESS") {
+        toast.success("Successfully registered account");
+        window.location.reload();
+      } else {
+        toast.error(res.message);
+      }
       console.log(res);
     },
     []

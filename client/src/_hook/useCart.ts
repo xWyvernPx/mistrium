@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect } from "react";
+import { toast } from "react-toastify";
 import { useRecoilState } from "recoil";
 import { cartAPI } from "../_api/cart.api";
 import cartAtom from "../_atom/cartAtom";
@@ -17,13 +18,16 @@ const useCart = () => {
   }, [cart]);
   const addToCart = useCallback(
     (product_id: number, quantity: number) => {
-      cartAPI.addToCart(product_id, quantity).then((cartFetched) =>
-        setCart({
-          ...cart,
-          id: cartFetched.id,
-          cartItems: cartFetched.details,
-        })
-      );
+      cartAPI.addToCart(product_id, quantity).then((cartFetched) => {
+        if (cartFetched) {
+          toast.success("Added product to cart");
+          setCart({
+            ...cart,
+            id: cartFetched.id,
+            cartItems: cartFetched.details,
+          });
+        } else toast.error("Add failed");
+      });
     },
     [cart]
   );

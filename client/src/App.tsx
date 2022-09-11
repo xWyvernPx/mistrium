@@ -23,6 +23,9 @@ import AdminProduct from "./_page/admin/product/AdminProduct";
 import AddProduct from "./_components/admin/form/AddProduct";
 import ProductDescriptionView from "./_components/admin/form/ProductDescriptionView";
 import UpdateProduct from "./_components/admin/form/UpdateProduct";
+import ProductDetailPage from "./_page/product/ProductDetailPage";
+import Footer from "./_components/common/footer/Footer";
+import IntroVideo from "./_components/landing/intro/IntroVideo";
 const Heaeder = React.lazy(() => import("./_components/common/header/Heaeder"));
 function App() {
   useAuth();
@@ -50,6 +53,7 @@ function App() {
           <Route path="/products">
             <Route path="" element={<ProductPage />}></Route>
             <Route path=":slug" element={<ProductDisplayPage />} />
+            <Route path="detail/:id" element={<ProductDetailPage />} />
           </Route>
           <Route path="/checkout" element={<PrivateRoute />}>
             <Route path="" element={<CheckoutPage />} />
@@ -61,7 +65,7 @@ function App() {
         </Route>
         <Route path="/*" element={<div>404</div>} />
       </Routes>
-      {/* <Footer /> */}
+      <Footer />
       {isOpen && (
         <Modal
           render={() => {
@@ -75,6 +79,7 @@ function App() {
               return <ProductDescriptionView />;
             else if (componentName === "UPDATE_PRODUCT")
               return <UpdateProduct payload={payload} />;
+            else if (componentName === "INTRO_VIDEO") return <IntroVideo />;
           }}
         />
       )}

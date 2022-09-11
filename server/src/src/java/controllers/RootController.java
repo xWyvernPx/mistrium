@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author WyvernP
  */
-@WebServlet(name = "RootController", urlPatterns = {"/"})
+@WebServlet(name = "RootController", urlPatterns = {"/home"})
 public class RootController extends HttpServlet {
 
   /**
@@ -29,12 +29,7 @@ public class RootController extends HttpServlet {
    * @throws ServletException if a servlet-specific error occurs
    * @throws IOException if an I/O error occurs
    */
-  protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-          throws ServletException, IOException {
-    response.setContentType("text/html;charset=UTF-8");
-    RequestDispatcher rd = request.getRequestDispatcher("public/index.jsp");
-    rd.forward(request, response);
-  }
+  
 
   // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
   /**
@@ -48,7 +43,12 @@ public class RootController extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
-    processRequest(request, response);
+          try{
+              
+          }
+          catch(Exception e) {
+              System.out.println(e);
+          }
   }
 
   /**
@@ -62,7 +62,7 @@ public class RootController extends HttpServlet {
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
-    processRequest(request, response);
+  
   }
 
   /**

@@ -115,6 +115,9 @@ public class AccountService implements IAccountService {
   public boolean blockUnblockAccount(int account_id) {
     return accountDAO.blockUnblockAccount(account_id);
   }
+  public boolean updateProfile(AccountDetail detail) {
+      return accountDetailDAO.upsert(detail) > 0 ;
+  }
 }
  
 

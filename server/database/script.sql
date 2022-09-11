@@ -1,7 +1,9 @@
 -- Create a new database called 'mistrium'
 -- Connect to the 'master' database to run this snippet
+
 USE master
 GO
+drop database mistrium
 -- Create the new database if it does not exist already
 IF NOT EXISTS (
     SELECT [name]
@@ -224,33 +226,34 @@ create table [order_detail] (
 
 -- END 
  
- SELECT COUNT(*) FROM product WHERE category_id = 1
+-- SELECT COUNT(*) FROM product WHERE category_id = 1
 
-SELECT COUNT(*) FROM product Where category_id = 1     
-
-insert into product ([name],[desc],[price],[stock],[thumbnail],category_id)
-VALUES ('Wood chair','brief',20,100,'https://source.unsplash.com/random',2);
-
-SELECT * FROM product p JOIN category c on p.category_id = c.id WHERE c.slug = ? AND p.name like ?
-
-select * from product
-
-select * from cart
+--SELECT COUNT(*) FROM product Where category_id = 1     
 
 
-select c.* , p.id as [productId] , p.name , p.[desc] , p.price,p.stock,p.thumbnail,p.category_id  from cart_detail c join product p on c.product_id = p.id
-WHERE cart_id = 1 and c.active = 1;
+--insert into product ([name],[desc],[price],[stock],[thumbnail],category_id)
+--VALUES ('Wood chair','brief',20,100,'https://source.unsplash.com/random',1);
 
-insert into cart (account_id,total)
-values (7,0)
+--SELECT * FROM product p JOIN category c on p.category_id = c.id WHERE c.slug = ? AND p.name like ?
 
-SELECT * from cart_detail
+--select * from product
 
-select * from product
+--select * from cart
 
-insert into cart_detail (cart_id,product_id,quantity)
-values(1,5,5)
 
-update  cart_detail set quantity =quantity+ 1 where id = 1012
+--select c.* , p.id as [productId] , p.name , p.[desc] , p.price,p.stock,p.thumbnail,p.category_id  from cart_detail c join product p on c.product_id = p.id
+--WHERE cart_id = 1 and c.active = 1;
 
-SELECT 
+--insert into cart (account_id,total)
+--values (7,0)
+
+--SELECT * from cart_detail
+
+--select * from product
+
+--insert into cart_detail (cart_id,product_id,quantity)
+--values(1,5,5)
+
+--update  cart_detail set quantity =quantity+ 1 where id = 1012
+
+--SELECT 

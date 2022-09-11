@@ -6,10 +6,13 @@ import {
   IconBrandFacebook,
   IconBrandYoutube,
 } from "@tabler/icons";
+import { TextField } from "../form/TextField";
+import { PrimaryButton } from "../button/Button";
 const FooterContainer = styled.div`
-  margin-top: 15rem;
-  height: var(--header-height);
-  padding: 3rem var(--section-x-padding);
+  background-color: var(--secondary);
+  margin-top: 20rem;
+  height: fit-content;
+  padding: 5rem var(--section-x-padding);
   z-index: 100;
   padding-bottom: 4rem;
   display: flex;
@@ -26,15 +29,31 @@ const FooterContainer = styled.div`
     height: 2px;
     background-color: var(--gray);
   }
+  @media screen and (max-width: 599.98px) {
+    padding: 4rem 2rem;
+  }
 `;
 const LogoWrapper = styled.img`
   width: 12rem;
   height: auto;
 `;
 const NavBarContainer = styled.ul`
-  width: fit-content;
+  /* width: fit-content; */
+  flex: 0 0 100%;
   display: flex;
+  flex-direction: column;
+  align-items: center;
   gap: 3rem;
+  position: relative;
+  input {
+  }
+
+  button {
+    border-radius: 5px;
+    padding: 1.5rem 2rem;
+    line-height: 1.5rem;
+    height: fit-content;
+  }
 `;
 const NavBarItem = styled.li`
   color: var(--black);
@@ -61,33 +80,42 @@ const NavBarItem = styled.li`
 const SocialWrapper = styled.div`
   flex: 0 0 10rem;
   display: flex;
+  gap: 2rem;
   justify-content: space-between;
   align-items: center;
+  position: absolute;
+  bottom: 0%;
+  right: 0;
 `;
+const SecondaryFooter = styled.div`
+  display: flex;
+  width: 100%;
+  background-color: var(--secondary-orange);
+  padding: 3rem var(--section-x-padding);
+`;
+
 const Footer = () => {
   return (
-    <FooterContainer>
-      <LogoWrapper src="/imgs/logo.png" />
-      <NavBarContainer>
-        <NavBarItem>
-          <Link to={"/"}>home</Link>
-        </NavBarItem>
-        <NavBarItem>
-          <Link to={"/"}>products</Link>
-        </NavBarItem>
-        <NavBarItem>
-          <Link to={"/"}>about us</Link>
-        </NavBarItem>
-        <NavBarItem>
-          <Link to={"/"}>contact</Link>
-        </NavBarItem>
-      </NavBarContainer>
-      <SocialWrapper>
-        <IconBrandFacebook color={"var(--gray)"} />
-        <IconBrandInstagram color={"var(--gray)"} />
-        <IconBrandYoutube color={"var(--gray)"} />
-      </SocialWrapper>
-    </FooterContainer>
+    <>
+      <FooterContainer>
+        <NavBarContainer>
+          <h2 style={{ fontSize: "4.5rem" }}>Subribe for discount or news</h2>
+          <TextField style={{ width: "40rem" }}>
+            <input type="email" placeholder=" " />
+            <label htmlFor="" style={{ backgroundColor: "var(--secondary)" }}>
+              Your email
+            </label>
+          </TextField>
+          <PrimaryButton>Subcribe</PrimaryButton>
+          <SocialWrapper>
+            <IconBrandFacebook color={"var(--gray)"} />
+            <IconBrandInstagram color={"var(--gray)"} />
+            <IconBrandYoutube color={"var(--gray)"} />
+          </SocialWrapper>
+        </NavBarContainer>
+      </FooterContainer>
+      {/* <SecondaryFooter></SecondaryFooter> */}
+    </>
   );
 };
 

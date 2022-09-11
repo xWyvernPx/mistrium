@@ -13,14 +13,26 @@ const ClientsSection = styled.section`
     font-size: 1.6rem;
     font-weight: 600;
   }
+  @media screen and (max-width: 767.98px) {
+    margin-top: 1rem;
+  }
+  @media screen and (max-width: 400.98px) {
+    h3 {
+      text-align: center;
+    }
+  }
 `;
 const ClientsLogoDisplay = styled.div`
   display: flex;
   flex-wrap: wrap;
-  gap: 10rem;
+  gap: 5rem;
+  row-gap: 3rem;
   justify-content: center;
   align-items: center;
   margin-top: 2rem;
+  @media screen and (max-width: 767.98px) {
+    gap: 1rem;
+  }
 `;
 const LogoWrapper = styled.div`
   flex: 0 0 12rem;

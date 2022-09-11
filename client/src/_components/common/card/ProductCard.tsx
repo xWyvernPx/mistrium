@@ -3,6 +3,11 @@ import styled from "styled-components";
 import { PrimaryButton } from "../button/Button";
 import { IconBasket, IconEye } from "@tabler/icons";
 import useCart from "../../../_hook/useCart";
+import { useNavigate } from "react-router-dom";
+import authAtom from "../../../_atom/authAtom";
+import { useRecoilValue } from "recoil";
+import useModal from "../../../_hook/useModal";
+import { toast } from "react-toastify";
 const LandingProductCardWrapper = styled.div`
   width: 31rem;
   padding: 4rem 5rem;
@@ -34,8 +39,8 @@ const PriceLine = styled.div`
       text-decoration: line-through;
       color: var(--gray);
     }
-    &::before {
-      content: "$";
+    &::after {
+      content: "₫";
     }
   }
 `;
@@ -59,7 +64,7 @@ const ProductImageWrapper = styled.div`
   position: absolute;
   width: 100%;
   left: 50%;
-  bottom: 0;
+  top: 4rem;
 
   transform: translateX(-50%) translateY(11rem);
   aspect-ratio: 1;
@@ -81,13 +86,28 @@ const ButtonsWrapper = styled.div`
 `;
 const ProductCard: React.FC<{ product: any }> = ({ product }) => {
   const { addToCart } = useCart();
+  const nav = useNavigate();
+  const { user } = useRecoilValue(authAtom);
+  const { setModalState } = useModal();
   return (
     <LandingProductCardWrapper>
       <ButtonsWrapper>
-        <AddToCartButton onClick={() => addToCart(product?.id, 1)}>
+        <AddToCartButton
+          onClick={() => {
+            if (user) addToCart(product?.id, 1);
+            else {
+              toast.error("You must be logged in to add to cart");
+              setModalState({
+                isOpen: true,
+                componentName: "LOGIN",
+                payload: null,
+              });
+            }
+          }}
+        >
           Add to Cart <IconBasket strokeWidth={1.5} />
         </AddToCartButton>
-        <AddToCartButton>
+        <AddToCartButton onClick={() => nav("/products/detail/" + product?.id)}>
           View <IconEye strokeWidth={1.5} />
         </AddToCartButton>
       </ButtonsWrapper>
@@ -95,11 +115,11 @@ const ProductCard: React.FC<{ product: any }> = ({ product }) => {
         <h3>{product?.name || "Ramen Stool"}</h3>
         <PriceLine>
           <span className="new">{product?.price}</span>
-          <span className="old">95</span>
+          <span className="old">{(product?.price * 1.1).toFixed(0)}</span>
         </PriceLine>
       </CardContent>
       <ProductImageWrapper>
-        <img src={"/imgs/Product1.png"} alt="" />
+        <img src={product?.thumbnail || "/imgs/Product1.png"} alt="" />
       </ProductImageWrapper>
     </LandingProductCardWrapper>
   );

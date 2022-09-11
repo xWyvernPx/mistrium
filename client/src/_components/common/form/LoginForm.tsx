@@ -1,5 +1,5 @@
 import { IconBrandFacebook, IconBrandGoogle } from "@tabler/icons";
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import styled from "styled-components";
 import { PrimaryButton } from "../button/Button";
@@ -7,6 +7,9 @@ import { FieldError, TextField } from "./TextField";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import useAuth from "../../../_hook/useAuth";
+import { authAPI } from "../../../_api/auth.api";
+import { debounce, sortedUniq } from "lodash";
+import OkFlag from "./OkFlag";
 
 const loginSchema = yup.object({
   email: yup
@@ -24,8 +27,11 @@ const LoginForm: React.FC<{ handleSwitchForm: Function }> = ({
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm({ mode: "all", resolver: yupResolver(loginSchema) });
+    setError,
+    clearErrors,
+  } = useForm({ mode: "onSubmit", resolver: yupResolver(loginSchema) });
   const { login } = useAuth();
+
   return (
     <FormWrapper
       onSubmit={handleSubmit((value) => {
@@ -40,16 +46,15 @@ const LoginForm: React.FC<{ handleSwitchForm: Function }> = ({
           render={({ field }) => (
             <input
               {...field}
-              //   onChange={(e) => {
-              //     // TODO : confirm email_verified
-              //     field.onChange(e);
-              //   }}
+              // onChange={async (e) => {
+
+              //   field.onChange(e);
+              // }}
               type="text"
               placeholder=" "
             />
           )}
         />
-
         <label htmlFor="">Email</label>
         {errors.email && <FieldError>{errors.email.message}</FieldError>}
       </TextField>
@@ -90,10 +95,11 @@ const CustomSpan = styled.span`
 const CustomButton = styled.button`
   color: var(--primary);
 `;
-const OauthButton = styled.button`
+const OauthButton = styled.a`
   border: 2px solid var(--primary);
   border-radius: 10px;
   padding: 0.5rem;
+  cursor: pointer;
 `;
 const OauthButtons = styled.div`
   display: flex;

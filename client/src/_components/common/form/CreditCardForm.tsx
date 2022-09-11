@@ -9,6 +9,7 @@ import { loadStripe } from "@stripe/stripe-js";
 import { useStripe, useElements } from "@stripe/react-stripe-js";
 import useCart from "../../../_hook/useCart";
 import useCheckout from "../../../_hook/useCheckout";
+import useOrder from "../../../_hook/useOrder";
 
 const FormLayout = styled.form`
   width: 100%;
@@ -36,6 +37,7 @@ const CreditCardForm: React.FC<{ clientSecret?: string }> = ({
       ),
     [cartItems]
   );
+  const { createOrder } = useCheckout();
   return (
     <FormLayout
       onSubmit={async (e) => {
@@ -51,7 +53,34 @@ const CreditCardForm: React.FC<{ clientSecret?: string }> = ({
             },
           }
         );
+
         console.log(paymentIntent);
+        if (paymentIntent) {
+          const {
+            name,
+            phone,
+            district_id,
+            province_id,
+            ward_id,
+            details,
+            delivery: {
+              type,
+              metadata: { fee },
+            },
+          } = checkoutPayload;
+          createOrder({
+            name,
+            phone,
+            district_id,
+            province_id,
+            ward_id,
+            details,
+            delivery_type: type,
+            delivery_cost: fee,
+            method_type: "CARD",
+            payment_intent_id: paymentIntent.id,
+          });
+        }
       }}
     >
       {/* <TextField>

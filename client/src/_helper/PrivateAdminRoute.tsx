@@ -16,7 +16,7 @@ const PrivateAdminRoute: React.FC<PropsWithChildren<any>> = ({ children }) => {
       </AdminLayout>
     );
   else {
-    setModalState({ isOpen: true, componentName: "LOGIN" });
+    setModalState({ isOpen: true, componentName: "LOGIN", payload: null });
     return <Navigate to={"/"} />;
   }
 };

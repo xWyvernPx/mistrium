@@ -70,9 +70,7 @@ export const CreditCardMethod: React.FC<PaymentMethodItemProps> = ({
     []
   );
 
-  const stripePromise = loadStripe(
-    "pk_test_51KrmUOGni8Rz7mdfmTgCgPvwNmTY2AbSgljmNqS7ihysuRVFvPN3SIrfQX6HwLbV7a0bENSTHZKBWJsMEH7suBgj000BykeHO6"
-  );
+  const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PK);
   const creditCardPayment = useCallback(async () => {}, [clientSecret]);
   return (
     <Elements stripe={stripePromise} options={{ clientSecret: clientSecret }}>

@@ -2,12 +2,13 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import useAuth from "../../../_hook/useAuth";
-const UserAreaWrapper = styled.button`
+const UserAreaWrapper = styled.span`
   height: 4rem;
   width: fit-content;
   padding: 0rem 0.5rem;
   display: flex;
   align-items: center;
+  justify-content: center;
   cursor: pointer;
   border: 1px solid transparent;
   transition: all 0.2s linear;
@@ -59,7 +60,7 @@ const UserHeader = () => {
 const UserMenuWrapper = styled.div`
   position: absolute;
   left: 0;
-  right: 0;
+  right: ${(props: { active: boolean }) => (props.active ? "0" : "10rem")};
   bottom: 0;
   height: fit-content;
   padding: 1rem 0.5rem;
@@ -70,6 +71,7 @@ const UserMenuWrapper = styled.div`
   background-color: var(--secondary-pink);
   border-radius: 5px;
   transition: all 0.2s linear;
+
   opacity: ${(props: { active: boolean }) => (props.active ? 1 : 0)};
   transform: translateY(
     ${(props: { active: boolean }) =>
@@ -80,6 +82,7 @@ const UserMenuWrapper = styled.div`
 const CustomLink = styled(Link)`
   font-size: 1.5rem;
   transition: all 0.15s linear;
+  align-self: center;
   &:hover {
     color: var(--primary);
   }
@@ -92,14 +95,14 @@ const LogoutLink = styled.button`
   }
 `;
 const UserMenu: React.FC<{ active: boolean }> = ({ active }) => {
-  const { logout } = useAuth();
-
   return (
-    <UserMenuWrapper active={active}>
+    <UserMenuWrapper active={active} style={{}}>
       <CustomLink to="/profile">Profile</CustomLink>
       <CustomLink to="/profile/orders">Orders</CustomLink>
       <LogoutLink
-        onClick={() => window.open("http://localhost:8080/mistrium/logout")}
+        onClick={() =>
+          window.open("http://localhost:8080/mistrium/logout", "_self")
+        }
       >
         Logout
       </LogoutLink>

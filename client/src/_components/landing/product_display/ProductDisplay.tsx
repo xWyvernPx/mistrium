@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
-import styled from "styled-components";
 import { IconArrowRight } from "@tabler/icons";
-import LandingProductCard from "../../common/card/LandingProductCard";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import useProduct from "../../../_hook/useProduct";
+import styled from "styled-components";
+import ProductAPI from "../../../_api/product.api";
+import ProductCard from "../../common/card/ProductCard";
 const ProductDisplaySection = styled.div`
   margin-top: 10rem;
   padding: 2rem var(--section-x-padding);
@@ -53,7 +53,7 @@ const ProductDisplayWrapper = styled.div`
   place-items: center;
   grid-template-columns: repeat(var(--columns), minmax(0, 1fr));
   grid-gap: var(--gap);
-  row-gap: 15rem;
+  row-gap: 17rem;
   @media screen and (max-width: 1023.98px) {
     --columns: 2;
   }
@@ -64,7 +64,7 @@ const ProductDisplayWrapper = styled.div`
 const CateList = [
   {
     title: "All",
-    value: "all",
+    value: "",
   },
   {
     title: "Bed",
@@ -81,12 +81,20 @@ const CateList = [
 ];
 const ProductDisplay: React.FC = () => {
   // prototype :  "ALL", "CHAIR", "TABLE"
-  const [type, setType] = useState<string>("ALL");
+  const [type, setType] = useState<string>("");
+  const [data, setData] = useState<any[]>([]);
   useEffect(() => {
-    // TODO : get product list from server on type change
+    ProductAPI.search(
+      { limit: 6, page: 1, order_by: "price", order: "desc" },
+      "",
+      type
+    ).then((data) => {
+      setData(data.data.data);
+    });
   }, [type]);
-  const { products } = useProduct(type);
+
   const nav = useNavigate();
+
   return (
     <ProductDisplaySection>
       <ProductDisplayHeading>
@@ -109,8 +117,8 @@ const ProductDisplay: React.FC = () => {
         ))}
       </CategoryListWrapper>
       <ProductDisplayWrapper>
-        {products?.data?.slice(0, 6).map((product: any) => (
-          <LandingProductCard />
+        {data?.slice(0, 6).map((product: any) => (
+          <ProductCard product={product} />
         ))}
       </ProductDisplayWrapper>
     </ProductDisplaySection>

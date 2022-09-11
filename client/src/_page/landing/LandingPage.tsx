@@ -1,10 +1,9 @@
 import React from "react";
 import styled from "styled-components";
-import Footer from "../../_components/common/footer/Footer";
-
-const Intro = React.lazy(() => import("../../_components/landing/intro/Intro"));
 import ProductDisplay from "../../_components/landing/product_display/ProductDisplay";
 import Special from "../../_components/landing/special/Special";
+
+const Intro = React.lazy(() => import("../../_components/landing/intro/Intro"));
 
 const PageLayout = styled.div`
   margin-top: var(--header-height);

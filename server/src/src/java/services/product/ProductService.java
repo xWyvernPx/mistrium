@@ -38,7 +38,9 @@ public class ProductService implements IProductService {
 
   @Override
   public Product getById(int id) {
-    throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    Product prod = productDAO.findOneById(id);
+      System.out.println("service " + prod);
+      return prod;
   }
 
   @Override

@@ -60,4 +60,23 @@ export const checkoutAPI = {
     const response = await axiosClient.post(url, { amount });
     return response.data;
   },
+  createOrder: async (detail: OrderPostBody) => {
+    const url = "/order";
+    const response = await axiosClient.post(url, {
+      ...detail,
+    });
+    return response;
+  },
 };
+export interface OrderPostBody {
+  name?: string;
+  phone?: string;
+  province_id?: number;
+  district_id?: number;
+  ward_id?: number;
+  details?: String;
+  delivery_type?: String;
+  delivery_cost?: number;
+  method_type?: string;
+  payment_intent_id?: string;
+}

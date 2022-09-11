@@ -17,6 +17,8 @@ import {
 } from "../../common/button/Button";
 import Loading from "../../common/loader/Loading";
 import { Mesh, Vector3 } from "three";
+import { useNavigate } from "react-router-dom";
+import useModal from "../../../_hook/useModal";
 
 const Model = () => {
   const gltf = useLoader(GLTFLoader, "./scene.gltf");
@@ -56,14 +58,17 @@ const Model = () => {
 };
 
 const Intro = () => {
+  const nav = useNavigate();
+  const { setModalState } = useModal();
+
   return (
     <IntroSection>
       <Backdrop>
         {/* <img src="/imgs/intro.png" alt="" /> */}
         <Canvas style={{ width: "100%", height: "100%" }}>
-          <Suspense fallback={null}>
-            <Model />
-            {/* <OrbitControls
+          {/* <Suspense fallback={<Loading />}> */}
+          <Model />
+          {/* <OrbitControls
               enableZoom={false}
               minPolarAngle={Math.PI / 3.5}
               maxPolarAngle={Math.PI / 2}
@@ -71,7 +76,7 @@ const Intro = () => {
               maxAzimuthAngle={Math.PI / 13}
               autoRotate={false}
             /> */}
-            {/* <Environment
+          {/* <Environment
               files={[
                 "/enviroment/px.png",
                 "/enviroment/nx.png",
@@ -82,14 +87,15 @@ const Intro = () => {
               ]}
               background
             /> */}
-            {/* <Rig /> */}
-          </Suspense>
+          {/* <Rig /> */}
+          {/* </Suspense>  */}
         </Canvas>
       </Backdrop>
       <ContentContainer>
         <IntroHeading>
           Modern Furniture For <br />
           Modern Living Style
+          {/* {import.meta.env.VITE_BE_URL} */}
         </IntroHeading>
         <IntroText>
           {" "}
@@ -102,8 +108,20 @@ const Intro = () => {
           impression out. Power is lived means oh every in we quiet.
         </IntroText>
         <ButtonsWrapper>
-          <PrimaryButton>Request a Quote</PrimaryButton>
-          <PrimaryOutlineButton>Watch Video</PrimaryOutlineButton>
+          <PrimaryButton onClick={() => nav("/products/all")}>
+            See our products
+          </PrimaryButton>
+          <PrimaryOutlineButton
+            onClick={() =>
+              setModalState({
+                isOpen: true,
+                componentName: "INTRO_VIDEO",
+                payload: null,
+              })
+            }
+          >
+            Watch Video
+          </PrimaryOutlineButton>
         </ButtonsWrapper>
       </ContentContainer>
     </IntroSection>
@@ -133,6 +151,10 @@ const ContentContainer = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    width: 100%;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
   }
 `;
 const IntroHeading = styled.h1`
@@ -144,8 +166,12 @@ const IntroHeading = styled.h1`
     font-size: 7rem;
     text-align: center;
   }
-  @media screen and (max-width: 374.98px) {
+
+  @media screen and (max-width: 559.98px) {
     font-size: 5rem;
+  }
+  @media screen and (max-width: 374.98px) {
+    font-size: 4rem;
   }
 `;
 const IntroText = styled.p`
@@ -153,6 +179,7 @@ const IntroText = styled.p`
   max-width: 50rem;
   text-align: justify;
   color: var(--white);
+  padding: 0 1rem;
   font-size: 1.8rem;
   text-shadow: 0px 0px 5px var(--black);
   pointer-events: none;

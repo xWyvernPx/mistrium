@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback, useState } from "react";
 import styled from "styled-components";
 import { PrimaryButton } from "../button/Button";
 import { FieldError, TextField } from "./TextField";
@@ -7,6 +7,9 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import useAuth from "../../../_hook/useAuth";
+import { debounce } from "lodash";
+import { authAPI } from "../../../_api/auth.api";
+import OkFlag from "./OkFlag";
 const FormWrapper = styled.form`
   width: 40rem;
   display: flex;
@@ -31,9 +34,25 @@ const RegisterForm: React.FC<{ handleSwitchForm: Function }> = ({
     register,
     control,
     handleSubmit,
+    setError,
+    clearErrors,
     formState: { errors },
   } = useForm({ mode: "all", resolver: yupResolver(registerSchema) });
+  const [emailValid, setEmailValid] = useState(false);
   const { registerAccount } = useAuth();
+  const debounceCheckEmail = useCallback(
+    debounce(async (email: string) => {
+      const res: any = await authAPI.checkEmail(email);
+      if (res.data) {
+        setEmailValid(false);
+        setError("email", { message: res.message });
+      } else {
+        setEmailValid(true);
+        clearErrors("email");
+      }
+    }, 500),
+    []
+  );
   return (
     <FormWrapper
       onSubmit={handleSubmit((value) => {
@@ -41,9 +60,19 @@ const RegisterForm: React.FC<{ handleSwitchForm: Function }> = ({
       })}
     >
       <TextField isValid={errors.email ? false : true}>
-        <input type="text" {...register("email")} id="" placeholder=" " />
+        <input
+          type="text"
+          {...register("email", {
+            onChange: (e) => {
+              debounceCheckEmail(e.target.value);
+            },
+          })}
+          id=""
+          placeholder=" "
+        />
         <label htmlFor="">Email</label>
         {errors.email && <FieldError>{errors.email.message}</FieldError>}
+        {emailValid && <OkFlag />}
       </TextField>
       <TextField isValid={errors.password ? false : true}>
         <input type="password" {...register("password")} placeholder=" " />

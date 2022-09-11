@@ -29,7 +29,7 @@ const AddProduct: React.FC<{ handleAdd?: Function }> = ({ handleAdd }) => {
           const imagekit = new ImageKit({
             urlEndpoint: "https://ik.imagekit.io/flamefoxeswyvernp/",
             authenticationEndpoint: "http://localhost:4321/sign",
-            publicKey: "public_6ay+ZjGEHi0n1WzG3MHQpMcOhkM=",
+            publicKey: "public_S6vyU9FG56dNofgzx0hbbBAZGDs=",
           });
 
           imagekit.upload(

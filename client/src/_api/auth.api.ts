@@ -21,4 +21,9 @@ export const authAPI = {
     const res = await axiosClient.post(url, { email, password, role: false });
     return res;
   },
+  checkEmail: async (email: string) => {
+    const url = "/auth/email";
+    const res = await axiosClient.get(url, { params: { email: email } });
+    return res;
+  },
 };

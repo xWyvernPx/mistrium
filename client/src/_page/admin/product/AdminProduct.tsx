@@ -58,6 +58,7 @@ const AdminProduct = () => {
       >
         {products?.map((product, i) => (
           <ProductTableRow
+            key={product.id}
             product={product}
             handleToggle={toggleActive}
             handleUpdate={updateProduct}

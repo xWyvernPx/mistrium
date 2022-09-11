@@ -13,7 +13,7 @@ const ModalContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  z-index: 101;
+  z-index: 10100;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px,
     rgba(100, 100, 111, 0.5) 0px 0px 0px 20rem;
   overflow-y: auto;

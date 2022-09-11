@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import ReactNumberFormat from "react-number-format";
 import styled from "styled-components";
 import useAddress from "../../_hook/useAddress";
@@ -11,6 +11,8 @@ import {
 import { useForm, Controller } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import authAtom from "../../_atom/authAtom";
+import { useRecoilValue } from "recoil";
 
 const contactSchema = yup.object({
   name: yup.string().required("This field is required"),
@@ -20,12 +22,12 @@ const contactSchema = yup.object({
   ward_id: yup.number().moreThan(0),
 });
 
-const FirstForm: React.FC = () => {
-  const { getDistricts, getProvinces, getWards } = useAddress();
-  const [provinces, setProvinces] = useState([]);
-  const [districts, setDistricts] = useState([]);
-  const [wards, setWards] = useState([]);
-  const {
+interface FormProps {
+  a11y?: any;
+}
+
+const FirstForm: React.FC<FormProps> = ({
+  a11y: {
     checkoutPayload,
     setProvinceId,
     setDistrictId,
@@ -33,10 +35,29 @@ const FirstForm: React.FC = () => {
     setName,
     setPhone,
     setAddressDetail,
-  } = useCheckout();
+    setComplete,
+  },
+}) => {
+  const { getDistricts, getProvinces, getWards } = useAddress();
+  const [provinces, setProvinces] = useState([]);
+  const [districts, setDistricts] = useState([]);
+  const [wards, setWards] = useState([]);
+  const user = useRecoilValue(authAtom);
+  console.log(user.user);
   useEffect(() => {
     getProvinces().then((provinces) => setProvinces(provinces));
   }, []);
+  // useEffect(() => {
+  //   getDistricts(user?.user?.account_detail?.province).then((districts: any) =>
+  //     setDistricts(districts)
+  //   );
+  // }, [user?.user?.account_detail?.province]);
+  // useEffect(() => {
+  //   getWards(user?.user?.account_detail?.district).then((wards: any) =>
+  //     setWards(wards)
+  //   );
+  // }, [user?.user?.account_detail?.district]);
+
   const {
     register,
     control,
@@ -44,8 +65,9 @@ const FirstForm: React.FC = () => {
     handleSubmit,
   } = useForm({
     resolver: yupResolver(contactSchema),
-    mode: "onBlur",
+    mode: "onChange",
   });
+
   return (
     <FormLayout
       onSubmit={handleSubmit(() => {
@@ -60,11 +82,12 @@ const FirstForm: React.FC = () => {
             control={control}
             render={({ field }) => (
               <input
-                defaultValue={checkoutPayload.name || ""}
+                defaultValue={
+                  checkoutPayload.name || user.user?.account_detail?.name || ""
+                }
                 {...field}
                 type="text"
                 onChange={(e) => {
-                  console.log(e.target.value);
                   setName(e.target.value);
                   field.onChange(e);
                 }}
@@ -81,8 +104,12 @@ const FirstForm: React.FC = () => {
             placeholder=" "
             format={"#### ### ###"}
             mask={"_"}
-            onChange={(e: any) => setPhone(e.target.value)}
-            defaultValue={checkoutPayload.phone || ""}
+            onChange={(e: any) => {
+              setPhone(e.target.value);
+            }}
+            defaultValue={
+              checkoutPayload.phone || user.user?.account_detail?.phone || ""
+            }
           />
           <label htmlFor="">Phone</label>
         </TextField>
@@ -107,7 +134,13 @@ const FirstForm: React.FC = () => {
               >
                 <option value={-1}>Choose Province</option>
                 {provinces?.map((province: any) => (
-                  <option value={province?.ProvinceID}>
+                  <option
+                    // selected={
+                    //   user?.user?.account_detail?.province ===
+                    //   province?.ProvinceID
+                    // }
+                    value={province?.ProvinceID}
+                  >
                     {province?.ProvinceName}
                   </option>
                 ))}
@@ -134,7 +167,13 @@ const FirstForm: React.FC = () => {
               >
                 <option value={-1}>Choose District</option>
                 {districts?.map((district: any) => (
-                  <option value={district?.DistrictID}>
+                  <option
+                    // selected={
+                    //   user?.user?.account_detail?.district ===
+                    //   district?.DistrictID
+                    // }
+                    value={district?.DistrictID}
+                  >
                     {district?.DistrictName}
                   </option>
                 ))}
@@ -151,12 +190,20 @@ const FirstForm: React.FC = () => {
             render={({ field }) => (
               <select
                 {...field}
-                value={checkoutPayload.ward_id}
-                onChange={(e) => setWardId(Number.parseInt(e.target.value))}
+                onChange={(e) => {
+                  setWardId(Number.parseInt(e.target.value));
+                }}
               >
                 <option value={-1}>Choose Ward</option>
                 {wards?.map((ward: any) => (
-                  <option value={ward?.WardCode}>{ward?.WardName}</option>
+                  <option
+                    // selected={
+                    //   user?.user?.account_detail?.ward == ward?.WardCode
+                    // }
+                    value={ward?.WardCode}
+                  >
+                    {ward?.WardName}
+                  </option>
                 ))}
               </select>
             )}
@@ -167,11 +214,12 @@ const FirstForm: React.FC = () => {
         <input
           type={"text"}
           placeholder=" "
-          onChange={(e) => setAddressDetail(e.target.value)}
+          onChange={(e) => {
+            setAddressDetail(e.target.value);
+          }}
         />
         <label htmlFor="">Detail Address</label>
       </TextField>
-      <button type="submit">ok</button>
     </FormLayout>
   );
 };

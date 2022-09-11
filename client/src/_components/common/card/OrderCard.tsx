@@ -72,7 +72,7 @@ const OrderStatus = styled.span`
 `;
 const OrderDate = styled.span`
   font-size: 1.7rem;
-  color: var(--gray-light);
+  color: var(--gray);
   margin-top: -1rem;
   padding-bottom: 1rem;
   flex: 0 0 fit-content;

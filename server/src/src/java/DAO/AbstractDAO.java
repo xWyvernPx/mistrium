@@ -22,6 +22,7 @@ public class AbstractDAO<T> implements GenericDAO<T> {
 
   @Override
   public List<T> query(String sql, RowMapper<T> mapper, Object... params) {
+      
     Connection cn = null;
     PreparedStatement statement = null;
     ResultSet rs = null;

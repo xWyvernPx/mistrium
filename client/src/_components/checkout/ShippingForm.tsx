@@ -8,17 +8,26 @@ const FormLayout = styled.div`
   width: 100%;
   justify-content: space-evenly;
 `;
-const ShippingForm = () => {
-  const { getAvailableDelivery } = useCheckout();
+const ShippingForm: React.FC<{ setComplete: Function }> = ({ setComplete }) => {
+  const { getAvailableDelivery } = useCheckout(false);
   const [methods, setMethods] = useState([]);
   useEffect(() => {
     getAvailableDelivery().then((data) => setMethods(data));
   }, []);
+  const [choice, setChoice] = useState<number>(-1);
+  useEffect(() => {
+    if (choice != -1) {
+      setComplete(true);
+    } else setComplete(false);
+  }, [choice]);
+
   return (
     <FormLayout>
-      {methods?.map((method, i) => (
+      {methods?.map((method, i: number) => (
         <ShippingServiceCard
+          onChooseService={() => setChoice(i)}
           key={i}
+          chosen={choice === i}
           service_img="http://static.ybox.vn/2020/6/6/1591409825512-ghn.png"
           service="GHN"
           fee={method?.total}

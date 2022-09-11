@@ -58,8 +58,13 @@ const NavFunction = () => {
 
   return (
     <NavFuncContainer>
-      <CustomLink href="http://localhost:3000/admin" target={"_self"}>
-        {user?.role && <IconDeviceAnalytics size={30} />}
+      <CustomLink href="http://localhost:3000/admin/account" target={"_self"}>
+        {user?.role && (
+          <IconDeviceAnalytics
+            style={{ transform: "translateY(5px)" }}
+            size={30}
+          />
+        )}
       </CustomLink>
       <FuncButton
         onClick={() => {
@@ -72,7 +77,11 @@ const NavFunction = () => {
       {!user ? (
         <FuncButton
           onClick={() => {
-            setModalState({ isOpen: true, componentName: "LOGIN" });
+            setModalState({
+              isOpen: true,
+              componentName: "LOGIN",
+              payload: null,
+            });
           }}
         >
           <IconUser size={30} />

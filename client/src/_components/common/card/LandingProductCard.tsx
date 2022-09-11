@@ -86,7 +86,7 @@ const LandingProductCard = () => {
         </PriceLine>
       </CardContent>
       <ProductImageWrapper>
-        <img src="/imgs/Product1.png" alt="" />
+        <img src="/imgs/light.png" alt="" />
       </ProductImageWrapper>
     </LandingProductCardWrapper>
   );

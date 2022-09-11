@@ -40,30 +40,30 @@ const TextEditor: React.FC<EditorProps> = ({
       console.log(file, fileName);
       //upload
       const imagekit = new ImageKit({
-        urlEndpoint: "https://ik.imagekit.io/flamefoxeswyvernp/",
-        authenticationEndpoint: "http://localhost:4321/sign",
+        urlEndpoint: import.meta.env.VITE_IMAGEKIT_URL,
+        authenticationEndpoint: import.meta.env.VITE_IMAGEKIT_AUTH_URL,
         publicKey: "public_6ay+ZjGEHi0n1WzG3MHQpMcOhkM=",
       });
-
-      // imagekit.upload(
-      //   {
-      //     folder: "/mistrium/product/image",
-      //     file: file,
-      //     fileName: `${fileName}.jpg`,
-      //     tags: ["product"],
-      //   },
-      //   function (err: any, result: any) {
-      //     console.log(arguments);
-      //     const url = imagekit.url({
-      //       src: result.url,
-      //     });
-      //     // quillObj.current.getEditor().insertEmbed(range.index, "image", url);
-      //   }
-      //   );
       const range = quillObj.current.getEditorSelection();
-      const localUrl = URL.createObjectURL(file);
-      console.log(localUrl);
-      quillObj.current.getEditor().insertEmbed(range.index, "image");
+
+      imagekit.upload(
+        {
+          folder: "/mistrium/product/image",
+          file: file,
+          fileName: `${fileName}.jpg`,
+          tags: ["product"],
+        },
+        function (err: any, result: any) {
+          console.log(arguments);
+          const url = imagekit.url({
+            src: result.url,
+          });
+          quillObj.current.getEditor().insertEmbed(range.index, "image", url);
+        }
+      );
+      // const localUrl = URL.createObjectURL(file);
+      // console.log(localUrl);
+      // quillObj.current.getEditor().insertEmbed(range.index, "image");
 
       //END
     };

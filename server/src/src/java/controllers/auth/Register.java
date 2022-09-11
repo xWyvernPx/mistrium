@@ -66,7 +66,7 @@ String jws = JWT.sign(String.valueOf(acc.getId()));
         cookie.setPath("/");
         response.addCookie(cookie);
     }else {
-      pw.print(new JSend<Account>(JSendEnum.FAIL,null,"Your email or password was not correct.Try again!").toJson());
+      pw.print(new JSend<Account>(JSendEnum.FAIL,null,"The email has been used").toJson());
     }
     }
   }

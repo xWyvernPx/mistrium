@@ -13,8 +13,8 @@ export const cartAPI = {
     return response.data;
   },
   removeFromCart: async (cart_detail_id: number) => {
-    const response = await axiosClient.delete(
-      `/cart?cart_detail_id=${cart_detail_id}`
+    const response = await axiosClient.post(
+      `/cart/delete?cart_detail_id=${cart_detail_id}`
     );
     return response.data;
   },

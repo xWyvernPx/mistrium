@@ -5,6 +5,8 @@
 package controllers.checkout;
 
 import helper.Jsend.GsonAdapter;
+import helper.Jsend.JSend;
+import helper.Jsend.JSendEnum;
 import helper.auth.AuthHelper;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -85,7 +87,7 @@ public class OrderController extends HttpServlet {
       PostOrderBody body = GsonAdapter.getInstance().fromJson(request.getReader(),PostOrderBody.class);
        
         Order order = orderService.createOrder(body,((Account)request.getAttribute("user")).getId());
-        
+        out.print(JSend.create(JSendEnum.SUCCESS, order, "Order completed"));
         
     }
   }

@@ -7,6 +7,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 import { RecoilRoot } from "recoil";
 import { ToastContainer } from "react-toastify";
 import Loading from "./_components/common/loader/Loading";
+
 ReactDOM.createRoot(document.getElementById("root")!).render(
   // <React.StrictMode>
   <Suspense fallback={<Loading />}>
@@ -22,7 +23,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
           rtl={false}
           pauseOnFocusLoss
           draggable
-          pauseOnHover
+          style={{ zIndex: 11000 }}
         />
       </RecoilRoot>
     </Router>

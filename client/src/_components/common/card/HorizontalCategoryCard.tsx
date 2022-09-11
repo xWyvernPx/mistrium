@@ -19,6 +19,29 @@ const HorizontalCard = styled.div`
   &:hover {
     cursor: pointer;
   }
+  @media screen and (max-width: 1023.98px) {
+    /* grid-template-areas: "row-1-1 row-1-2" "row-2-1" "row-2-2" "row-3-1 row-3-2"; */
+    &:first-child {
+      grid-area: row-1-1;
+      /* width: 70%; */
+    }
+    &:nth-child(2) {
+      grid-area: row-1-2;
+      /* width: 30%; */
+    }
+  }
+  @media screen and (max-width: 599.98px) {
+    /* grid-template-areas: "row-1-1 row-1-2" "row-2-1" "row-2-2" "row-3-1 row-3-2"; */
+    &:first-child {
+      grid-area: row-1-1;
+      /* width: 70%; */
+    }
+    &:nth-child(2) {
+      grid-area: row-2-1;
+      /* width: 30%; */
+    }
+    padding: 3rem 1rem;
+  }
 `;
 const CardHeadline = styled.div`
   width: 100%;
@@ -46,7 +69,7 @@ const CategoryThumbnail = styled.div`
 interface CategoryCard {
   title: string;
   slug: string;
-  thumbnail?: String;
+  thumbnail?: string;
 }
 const HorizontalCategoryCard: React.FC<CategoryCard> = ({
   slug,
@@ -65,7 +88,7 @@ const HorizontalCategoryCard: React.FC<CategoryCard> = ({
         <span>20</span>
       </CardHeadline>
       <CategoryThumbnail>
-        <img src="https://source.unsplash.com/random" alt="" />
+        <img src={thumbnail || "https://source.unsplash.com/random"} alt="" />
       </CategoryThumbnail>
     </HorizontalCard>
   );

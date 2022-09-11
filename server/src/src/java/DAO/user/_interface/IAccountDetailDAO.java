@@ -12,4 +12,5 @@ import models.AccountDetail;
  */
 public interface IAccountDetailDAO {
     AccountDetail getDetail(int account_id);
+    int upsert(AccountDetail detail);
 }

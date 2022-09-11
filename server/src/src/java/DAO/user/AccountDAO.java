@@ -34,7 +34,7 @@ public class AccountDAO extends AbstractDAO<Account> implements IAccountDAO {
     Connection cn = null;
     PreparedStatement ps = null;
     ResultSet rs = null;
-
+    
     try {
       cn = ConnectDb.getConnection();
     } catch (Exception e) {
@@ -48,7 +48,7 @@ public class AccountDAO extends AbstractDAO<Account> implements IAccountDAO {
     try {
       return query("SELECT * FROM account WHERE email = ? ", new AccountMapper(), email).get(0);
     } catch (Exception e) {
-      //TODO: handle exception
+
       return null;
     }
   }
@@ -109,8 +109,4 @@ public class AccountDAO extends AbstractDAO<Account> implements IAccountDAO {
       return -1;
     }
   }
-
-  
-  
-  
 }

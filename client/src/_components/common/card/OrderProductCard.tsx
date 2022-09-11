@@ -11,12 +11,13 @@ const CardLayout = styled.div`
   box-shadow: rgba(100, 100, 111, 0.1) 0px 7px 17px -3px;
 `;
 const CardImgWrapper = styled.div`
-  height: 100%;
-  aspect-ratio: 16/9;
+  width: 20rem;
+  aspect-ratio: 1;
   img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
+    object-position: center;
   }
 `;
 const CardContent = styled.div`

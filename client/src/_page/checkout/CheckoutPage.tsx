@@ -13,6 +13,8 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import useAddress from "../../_hook/useAddress";
+import useCheckout from "../../_hook/useCheckout";
+import Spinner from "../../_components/common/loader/Spinner";
 
 const checkoutFormSchema = yup
   .object({
@@ -23,21 +25,24 @@ const checkoutFormSchema = yup
 
 const CheckoutPage = () => {
   const navigate = useNavigate();
+  const [isComplete, setComplete] = useState(false);
+
   const [stage, setStage] = useState({
     step: 1,
   });
-  const {
-    control,
-    setValue,
-    getValues,
-    watch,
-    handleSubmit,
-    register,
-    formState: { isValid, isSubmitting, errors },
-  } = useForm({
-    mode: "all",
-  });
-
+  const { ...a11y } = useCheckout();
+  useEffect(() => {
+    if (
+      // a11y.checkoutPayload.name &&
+      // a11y.checkoutPayload.phone &&
+      a11y.checkoutPayload.province_id > 0 &&
+      a11y.checkoutPayload.district_id > 0 &&
+      a11y.checkoutPayload.ward_id > 0 &&
+      a11y.checkoutPayload.details
+    ) {
+      setComplete(true);
+    } else setComplete(false);
+  }, [a11y.checkoutPayload]);
   return (
     <CheckoutPageWrapper>
       <CheckoutPageHeadline>
@@ -53,8 +58,10 @@ const CheckoutPage = () => {
           {stage.step === 3 && <FormHeadline>Payment Method</FormHeadline>}
           <CheckoutForm>
             <FormSlider>
-              {stage.step === 1 && <FirstForm />}
-              {stage.step === 2 && <ShippingForm />}
+              {stage.step === 1 && (
+                <FirstForm a11y={{ ...a11y, setComplete }} />
+              )}
+              {stage.step === 2 && <ShippingForm setComplete={setComplete} />}
               {stage.step === 3 && <PaymentForm />}
             </FormSlider>
             <SwitchFormButtonsWrapper>
@@ -67,7 +74,7 @@ const CheckoutPage = () => {
               </CustomeOutlineButton>
               <CustomeOutlineButton
                 type="button"
-                disabled={stage.step === 3}
+                disabled={stage.step === 3 || !isComplete}
                 onClick={() => setStage({ step: stage.step + 1 })}
               >
                 <IconArrowRight />
@@ -78,6 +85,7 @@ const CheckoutPage = () => {
 
         <OrderReview />
       </MainPageLayout>
+      {a11y.checkoutPayload.isProcessing && <Spinner />}
     </CheckoutPageWrapper>
   );
 };

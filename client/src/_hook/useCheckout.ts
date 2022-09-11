@@ -1,28 +1,30 @@
 import React, { useState, useCallback, useEffect } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { checkoutAPI } from "../_api/checkout.api";
+import { checkoutAPI, OrderPostBody } from "../_api/checkout.api";
 import authAtom from "../_atom/authAtom";
 import checkoutAtom from "../_atom/checkoutAtom";
 import { debounce } from "lodash";
-const useCheckout = () => {
-  const user = useRecoilValue(authAtom);
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+const useCheckout = (init: boolean = true) => {
   const [checkoutPayload, setCheckoutPayload] = useRecoilState(checkoutAtom);
-
+  const nav = useNavigate();
   useEffect(() => {
-    if (user.user) {
-      const accountDetail = user.user;
-      setCheckoutPayload({
-        ...checkoutPayload,
-        name: accountDetail.name ? accountDetail.name : null,
-        phone: accountDetail.phone ? accountDetail.phone : null,
-        province_id: accountDetail.province ? accountDetail.province : null,
-        district_id: accountDetail.district ? accountDetail.district : null,
-        ward_id: accountDetail.ward_id ? accountDetail.ward_id : null,
-      });
-    }
-  }, [user.user]);
+    // if (init && user.user) {
+    //   console.log("render here");
+    //   const accountDetail = user.user;
+    //   setCheckoutPayload({
+    //     ...checkoutPayload,
+    //     name: accountDetail.name ? accountDetail.name : null,
+    //     phone: accountDetail.phone ? accountDetail.phone : null,
+    //     province_id: accountDetail.province ? accountDetail.province : null,
+    //     district_id: accountDetail.district ? accountDetail.district : null,
+    //     ward_id: accountDetail.ward_id ? accountDetail.ward_id : null,
+    //   });
+    // }
+  }, []);
   useEffect(() => {
-    console.log(checkoutPayload);
+    console.log("state change", checkoutPayload);
   }, [checkoutPayload]);
   const setProvinceId = useCallback(
     (province_id: number) => {
@@ -61,8 +63,11 @@ const useCheckout = () => {
     [checkoutPayload]
   );
   const setDelivery = useCallback(
-    (type: string, metadata: Object) => {
-      setCheckoutPayload({ ...checkoutPayload, delivery: { type, metadata } });
+    (type: string, metadata: any) => {
+      setCheckoutPayload({
+        ...checkoutPayload,
+        delivery: { type, metadata: { ...metadata, fee: metadata.fee } },
+      });
     },
     [checkoutPayload]
   );
@@ -90,6 +95,26 @@ const useCheckout = () => {
     const methods = await Promise.all(promises);
     return methods;
   }, [checkoutPayload]);
+  const createOrder = async (order: OrderPostBody) => {
+    setProcess(true);
+    const response = await checkoutAPI
+      .createOrder(order)
+      .then((response: any) => {
+        setProcess(false);
+        if (response.status === "SUCCESS")
+          toast.success("Order has been created successfully.");
+        // nav("/profile/orders",);
+        window.location.replace("/profile/orders");
+      });
+    console.log(response);
+  };
+  const setProcess = useCallback(
+    (state: boolean) => {
+      setCheckoutPayload({ ...checkoutPayload, isProcessing: state });
+    },
+    [checkoutPayload]
+  );
+
   return {
     checkoutPayload,
     setAddressDetail,
@@ -101,6 +126,7 @@ const useCheckout = () => {
     setMethod,
     setDelivery,
     getAvailableDelivery,
+    createOrder,
   };
 };
 

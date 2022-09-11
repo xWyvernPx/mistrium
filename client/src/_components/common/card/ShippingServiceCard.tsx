@@ -34,6 +34,7 @@ interface CardProps {
   service_img: string;
   chosen?: boolean;
   fee: number;
+  onChooseService: Function;
 }
 const DeliveryPrice = styled.span`
   font-size: 1.7rem;
@@ -60,10 +61,17 @@ const ShippingServiceCard: React.FC<CardProps> = ({
   service,
   service_img,
   fee,
+  onChooseService,
 }) => {
-  const { setDelivery } = useCheckout();
+  const { setDelivery } = useCheckout(false);
   return (
-    <CardLayout active={chosen} onClick={() => setDelivery(service, { fee })}>
+    <CardLayout
+      active={chosen}
+      onClick={() => {
+        setDelivery(service, { fee });
+        onChooseService();
+      }}
+    >
       <ServiceImgWrapper>
         <img src={service_img || "https://via.placeholder.com/150"} alt="" />
       </ServiceImgWrapper>

@@ -62,8 +62,9 @@ const AdminOrderPage = () => {
             <IconFilter />
             {filterOpen && (
               <div
-                className="absolute left-0 bottom-0
-            translate-y-full -translate-x-full px-5
+                className="absolute  left-[-5rem] bottom-[-8rem]
+                transform
+            -translate-y-full translate-x-full px-5
             py-2 bg-[color:var(--white)] rounded-sm drop-shadow-lg flex flex-col gap-3"
               >
                 <span

@@ -48,12 +48,14 @@ public class CartController extends HttpServlet {
     try ( PrintWriter out = response.getWriter()) {
       AuthHelper.checkAuth(request, response);
 //      TODO : get id from body not query params
-      int account_id = ((Account) request.getAttribute("user")).getId();
-      if (account_id <= 0) {
+Account acc = (Account) request.getAttribute("user");
+      
+      if (acc == null ) {
         response.setStatus(403);
         out.print(new JSend(JSendEnum.FAIL, null, "Not authorized!").toJson());
         out.close();
       } else {
+          int account_id = acc.getId();
         Cart cart = cartService.getCart(account_id);
         out.print(new JSend(JSendEnum.SUCCESS, cart, "").toJson());
       }

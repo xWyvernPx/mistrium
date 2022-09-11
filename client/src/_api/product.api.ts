@@ -57,5 +57,10 @@ const ProductAPI = {
     const res = await axiosClient.post(url);
     return res;
   },
+  getDetail: async (id: number) => {
+    const url = "/product/detail";
+    const response = await axiosClient.get(url, { params: { id: id } });
+    return response.data;
+  },
 };
 export default ProductAPI;

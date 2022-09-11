@@ -1,7 +1,7 @@
 import axios from "axios";
 import Qs from "query-string";
 const config = {
-  baseUrl: "http://localhost:8080/mistrium/",
+  baseUrl: import.meta.env.VITE_BE_URL,
 };
 const axiosClient = axios.create({
   baseURL: config.baseUrl,

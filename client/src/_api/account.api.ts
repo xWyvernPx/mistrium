@@ -24,4 +24,18 @@ export const accountAPI = {
     });
     return result.data;
   },
+  updateProfile: async (profile: Profile) => {
+    const url = "/account/profile";
+    const result = await axiosClient.post(url, { ...profile });
+    return result;
+  },
 };
+
+interface Profile {
+  name: string;
+  phone: string;
+  gender: boolean;
+  district: number;
+  province: number;
+  ward: number;
+}

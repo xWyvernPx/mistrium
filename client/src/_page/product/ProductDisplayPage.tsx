@@ -6,30 +6,33 @@ import { IconFilter } from "@tabler/icons";
 import MainProductDisplaySide from "../../_components/product/main_product_side/MainProductDisplaySide";
 const ProductDisplayPageWrapper = styled.div`
   margin-top: var(--header-height);
-  padding: 0rem var(--section-x-padding);
-  height: calc(100vh - var(--header-height));
 
+  padding: 0rem var(--section-x-padding);
   display: flex;
   position: relative;
+  @media screen and (max-width: 599.98px) {
+    padding: 0rem 1.5rem;
+  }
 `;
 const SidebarToggle = styled.button`
   padding: 2rem 1rem;
   place-self: center;
   height: 7rem;
   grid-area: button;
-  border: 2px solid var(--gray);
+  border: 2px solid var(--light-primary);
 
   border-radius: 0 2rem 2rem 0;
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: var(--white);
   svg {
-    stroke: var(--gray);
+    stroke: var(--light-primary);
   }
   &:hover {
-    border: 2px solid var(--light-primary);
+    border: 2px solid var(--accent);
     svg {
-      stroke: var(--light-primary);
+      stroke: var(--accent);
     }
   }
 `;

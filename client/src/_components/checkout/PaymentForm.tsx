@@ -10,6 +10,8 @@ import PaymentMethodItem, {
 
 import { loadStripe } from "@stripe/stripe-js";
 import { checkoutAPI } from "../../_api/checkout.api";
+import { useRecoilValue } from "recoil";
+import checkoutAtom, { cartTotalPriceState } from "../../_atom/checkoutAtom";
 const FormLayout = styled.div`
   margin-top: 5rem;
   display: flex;
@@ -31,10 +33,26 @@ const PaymentForm = () => {
   }>({
     type: "COD",
   });
+  const {
+    name,
+    phone,
+    province_id,
+    district_id,
+    ward_id,
+    delivery: {
+      type,
+      metadata: { fee },
+    },
+    details,
+  } = useRecoilValue(checkoutAtom);
+
   const [clientSecret, setClientSecret] = useState();
+  const checkoutTotal = useRecoilValue(cartTotalPriceState);
+  const { createOrder } = useCheckout();
+
   useEffect(() => {
     checkoutAPI
-      .createPaymentIntent(10000)
+      .createPaymentIntent(checkoutTotal)
       .then((clientSecret) => setClientSecret(clientSecret));
   }, []);
   useEffect(() => {
@@ -58,7 +76,26 @@ const PaymentForm = () => {
           onClick={() => setMethodType({ ...methodType, type: "CARD" })}
         />
       )}
-      <CustomButton>Complete Order</CustomButton>
+      {methodType.type === "COD" && (
+        <CustomButton
+          onClick={() => {
+            createOrder({
+              name,
+              phone,
+              province_id,
+              district_id,
+              ward_id,
+              details,
+              delivery_type: type,
+              delivery_cost: fee,
+              method_type: "COD",
+              payment_intent_id: clientSecret,
+            });
+          }}
+        >
+          Complete Order
+        </CustomButton>
+      )}
     </FormLayout>
   );
 };

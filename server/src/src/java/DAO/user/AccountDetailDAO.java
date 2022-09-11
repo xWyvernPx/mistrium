@@ -24,5 +24,25 @@ public class AccountDetailDAO extends AbstractDAO<AccountDetail> implements IAcc
       return null;
     }
   }
+  public int upsert (AccountDetail detail){
+      try {
+          AccountDetail current = getDetail(detail.getAccount_id());
+          if(current==null){
+              String sql = "insert into account_detail (name,phone,gender,district,ward,province,account_id)\n" +
+"values (?,?,?,?,?,?,?) ";
+              return insert(sql,detail.getName(),detail.getPhone(),detail.isGender()?1:0,detail.getDistrict(),detail.getWard(),detail.getProvince(),detail.getAccount_id());
+          }
+          else {
+              String sql = "Update account_detail  set [name] = ? , phone = ? , gender = ? , district = ? ,ward=?,province=? \n" +
+"Where account_id = ?";
+              return update(sql,detail.getName(),
+                      detail.getPhone(),
+                      detail.isGender() ? 1 : 0,
+                      detail.getDistrict(),detail.getWard(),detail.getProvince(),detail.getAccount_id());
+          }
+      } catch (Exception e) {
+          return -1;
+      }
+  }
   
 }

@@ -24,9 +24,11 @@ public class OrderDAO extends AbstractDAO<Order> implements IOrderDAO {
   @Override
   public int createOrder(PostOrderBody body, int account_id) {
     try {
+        System.out.println(body);
       String url = "insert into [order] (account_id,ship_date,name,phone,province_id,district_id,ward_id,details,delivery_type,delivery_cost,method_type,payment_intent_id)\n" +
 "VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
       int order_id = insert(url,account_id,new SimpleDateFormat().format(new Date()),body.getName(),body.getPhone(),body.getProvince_id(),body.getDistrict_id(),body.getWard_id(),body.getDetails(),body.getDelivery_type(),body.getDelivery_cost(),body.getMethod_type(),body.getPayment_intent_id());
+        System.out.println(order_id);
       return order_id;
     } catch (Exception e) {
       return -1;
@@ -71,8 +73,8 @@ public class OrderDAO extends AbstractDAO<Order> implements IOrderDAO {
   @Override
   public int reorder(int order_id) {
      try {
-      String sql =  "UPDATE [order] SET process = 1 WHERE id = ?";
-      return update(sql,order_id);
+      String sql =  "UPDATE [order] SET process = 1 , created_at = ? WHERE id = ?";
+      return update(sql,new SimpleDateFormat().format(new Date()),order_id);
     } catch (Exception e) {
       return -1;
     }

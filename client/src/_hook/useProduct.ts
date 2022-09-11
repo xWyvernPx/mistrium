@@ -13,7 +13,7 @@ const useProduct = (category_slug: string) => {
     data: [],
     pagination: {
       page: 1,
-      limit: 10,
+      limit: 4,
       order: "asc",
       order_by: "id",
     },
@@ -25,7 +25,7 @@ const useProduct = (category_slug: string) => {
     );
   }, []);
   useEffect(() => {
-    search(term, { page: 1, limit: 10, order: "asc", order_by: "id" }).then(
+    search(term, { page: 1, limit: 4, order: "asc", order_by: "id" }).then(
       (data: any) =>
         setProduct({ data: data.data, pagination: data.pagination })
     );
@@ -49,19 +49,28 @@ const useProduct = (category_slug: string) => {
       category_slug
     );
     setProduct({
-      data: [...products.data, ...response.data],
+      data: [...products.data, ...response.data.data],
       pagination: response.data.pagination,
     });
-  }, []);
+  }, [products]);
   const addNewProduct = useCallback(async (product: Product) => {
     const res = await ProductAPI.addNewProduct(product);
   }, []);
+  const setFilter = useCallback(
+    async (order: string, order_by: string) => {
+      search(term, { page: 1, limit: 4, order, order_by }).then((data: any) =>
+        setProduct({ data: data.data, pagination: data.pagination })
+      );
+    },
+    [products]
+  );
   return {
     products,
     loadMore,
     setTerm,
     addNewProduct,
     term,
+    setFilter,
   };
 };
 
