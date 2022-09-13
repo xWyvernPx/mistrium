@@ -61,7 +61,7 @@ public class GoogleAuthCallback extends HttpServlet {
         cookie.setPath("/");
         cookie.setMaxAge(60*60*24);
         response.addCookie(cookie);
-        response.sendRedirect("http://localhost:3000");
+        response.sendRedirect("https://mistrium.vercel.app");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

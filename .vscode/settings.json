@@ -4,5 +4,7 @@
     "c:\\Users\\WyvernP\\Downloads\\gson-2.9.0.jar",
     "c:\\server\\sqljdbc42.jar",
     "c:\\Users\\WyvernP\\Downloads\\javax.servlet-api-4.0.1.jar"
-  ]
+  ],
+  "appService.defaultWebAppToDeploy": "/subscriptions/bf17f114-31a0-4850-901e-8a937c993611/microsoft.web/sites/subscriptions/bf17f114-31a0-4850-901e-8a937c993611/resourceGroups/Personal_Project/providers/Microsoft.Web/sites/mistrium",
+  "appService.deploySubpath": "server\\src\\dist\\src.war"
 }
