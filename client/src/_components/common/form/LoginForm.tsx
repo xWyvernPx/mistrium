@@ -73,7 +73,7 @@ const LoginForm: React.FC<{ handleSwitchForm: Function }> = ({
       <OauthButtons>
         <OauthButton
           onClick={() =>
-            window.open("http://localhost:8080/mistrium/auth/google", "_self")
+            window.open(import.meta.env.VITE_BE_URL + "auth/google", "_self")
           }
         >
           <IconBrandGoogle />
