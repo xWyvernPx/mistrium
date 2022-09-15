@@ -76,27 +76,28 @@ const LoginForm: React.FC<{ handleSwitchForm: Function }> = ({
             // window.open(import.meta.env.VITE_BE_URL + "auth/google", "_self")
             let xhr = new XMLHttpRequest();
             xhr.open("GET", import.meta.env.VITE_BE_URL + "auth/google");
-            xhr.setRequestHeader(
-              "Access-Control-Allow-Origin",
-              "https://mistrium.vercel.app"
-            );
-            xhr.setRequestHeader(
-              "Access-Control-Allow-Methods",
-              "GET,PUT,POST,DELETE,PATCH,OPTIONS"
-            );
-            xhr.withCredentials = true;
+            // xhr.setRequestHeader(
+            //   "Access-Control-Allow-Origin",
+            //   "https://mistrium.vercel.app"
+            // );
+            // xhr.setRequestHeader(
+            //   "Access-Control-Allow-Methods",
+            //   "GET,PUT,POST,DELETE,PATCH,OPTIONS"
+            // );
+            // xhr.withCredentials = true;
             xhr.onreadystatechange = function () {
-              // request completed?
-              if (xhr.readyState !== 4) return;
               window.open(xhr.responseURL, "_self");
+              // request completed?
+              // if (xhr.readyState !== 4) return;
+              // window.open(xhr.responseURL, "_self");
 
-              if (xhr.status === 200) {
-                // request successful - show response
-                window.open(xhr.responseURL, "_self");
-              } else {
-                // request error
-                console.log("HTTP error", xhr.status, xhr.statusText);
-              }
+              // if (xhr.status === 200) {
+              //   // request successful - show response
+              //   window.open(xhr.responseURL, "_self");
+              // } else {
+              //   // request error
+              //   console.log("HTTP error", xhr.status, xhr.statusText);
+              // }
             };
             xhr.send();
           }}

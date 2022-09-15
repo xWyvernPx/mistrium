@@ -36,7 +36,7 @@ public class GoogleAuth extends HttpServlet {
         response.setHeader("Access-Control-Allow-Origin", "https://mistrium.vercel.app");
                 response.setHeader("Access-Control-Allow-Method", "GET,POST,PUT,PATCH,OPTIONS");
 
-        response.setHeader(" Access-Control-Allow-Headers", "content-type");
+        response.setHeader(" Access-Control-Allow-Headers", "Access-Control-Allow-Method,Access-Control-Allow-Method,Access-Control-Allow-Credentials");
         
         
         String clientId = getServletContext().getInitParameter("GG_CLIENT_ID");
