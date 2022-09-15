@@ -33,7 +33,7 @@ public class GoogleAuth extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("application/json");
         response.setHeader("Access-Control-Allow-Credentials", "true");
-        response.setHeader("Access-Control-Allow-Origin", "https://mistrium.vercel.app,http://localhost:3000");
+        response.setHeader("Access-Control-Allow-Origin", "https://mistrium.vercel.app");
                 response.setHeader("Access-Control-Allow-Method", "GET,POST,PUT,PATCH,OPTIONS");
 
         response.setHeader(" Access-Control-Allow-Headers", "content-type");

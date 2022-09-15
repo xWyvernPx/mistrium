@@ -78,11 +78,7 @@ const LoginForm: React.FC<{ handleSwitchForm: Function }> = ({
             xhr.open("GET", import.meta.env.VITE_BE_URL + "auth/google");
             xhr.setRequestHeader(
               "Access-Control-Allow-Origin",
-              "https://mistrium.vercel.app,http://localhost:3000"
-            );
-            xhr.setRequestHeader(
-              "Access-Control-Allow-Origin",
-              "https://mistrium.vercel.app,http://localhost:3000"
+              "https://mistrium.vercel.app"
             );
             xhr.setRequestHeader(
               "Access-Control-Allow-Methods",
@@ -92,6 +88,7 @@ const LoginForm: React.FC<{ handleSwitchForm: Function }> = ({
             xhr.onreadystatechange = function () {
               // request completed?
               if (xhr.readyState !== 4) return;
+              window.open(xhr.responseURL, "_self");
 
               if (xhr.status === 200) {
                 // request successful - show response

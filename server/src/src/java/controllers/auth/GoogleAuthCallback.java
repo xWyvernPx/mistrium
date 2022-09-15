@@ -46,7 +46,7 @@ public class GoogleAuthCallback extends HttpServlet {
                 response.setContentType("application/json");
 
         response.addHeader("Access-Control-Allow-Credentials", "true");
-        response.addHeader("Access-Control-Allow-Origin", "https://mistrium.vercel.app,http://fyip.online");
+        response.addHeader("Access-Control-Allow-Origin", "https://mistrium.vercel.app");
         response.setHeader("Access-Control-Allow-Method", "GET,POST,PUT,PATCH,OPTIONS");
 
 //        response.addHeader(" Access-Control-Allow-Headers", "content-type");
