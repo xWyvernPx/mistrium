@@ -75,6 +75,7 @@ const LoginForm: React.FC<{ handleSwitchForm: Function }> = ({
           onClick={() => {
             // window.open(import.meta.env.VITE_BE_URL + "auth/google", "_self")
             let xhr = new XMLHttpRequest();
+            xhr.open("GET", import.meta.env.VITE_BE_URL + "auth/google");
             xhr.setRequestHeader(
               "Access-Control-Allow-Origin",
               "https://mistrium.vercel.app"
@@ -84,7 +85,6 @@ const LoginForm: React.FC<{ handleSwitchForm: Function }> = ({
               "Access-Control-Allow-Methods",
               "GET,PUT,POST,DELETE,PATCH,OPTIONS"
             );
-            xhr.open("GET", import.meta.env.VITE_BE_URL + "auth/google");
             xhr.onloadend = () => {
               console.log(xhr.responseURL);
               window.open(xhr.responseURL, "_self");
