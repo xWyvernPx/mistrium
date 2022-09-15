@@ -72,20 +72,25 @@ const LoginForm: React.FC<{ handleSwitchForm: Function }> = ({
       <CustomSpan>or</CustomSpan>
       <OauthButtons>
         <OauthButton
-          onClick={async () => {
+          onClick={() => {
             // window.open(import.meta.env.VITE_BE_URL + "auth/google", "_self")
             let xhr = new XMLHttpRequest();
+            xhr.setRequestHeader(
+              "Access-Control-Allow-Origin",
+              "https://mistrium.vercel.app"
+            );
+            xhr.withCredentials = true;
+            xhr.setRequestHeader(
+              "Access-Control-Allow-Methods",
+              "GET,PUT,POST,DELETE,PATCH,OPTIONS"
+            );
             xhr.open("GET", import.meta.env.VITE_BE_URL + "auth/google");
-            // xhr.setRequestHeader(
-            //   "Access-Control-Allow-Origin",
-            //   "https://mistrium.vercel.app"
-            // );
-            // xhr.setRequestHeader(
-            //   "Access-Control-Allow-Methods",
-            //   "GET,PUT,POST,DELETE,PATCH,OPTIONS"
-            // );
-            // xhr.withCredentials = true;
+            xhr.onloadend = () => {
+              console.log(xhr.responseURL);
+              window.open(xhr.responseURL, "_self");
+            };
             xhr.onreadystatechange = function () {
+              console.log(xhr.responseURL);
               window.open(xhr.responseURL, "_self");
               // request completed?
               // if (xhr.readyState !== 4) return;
