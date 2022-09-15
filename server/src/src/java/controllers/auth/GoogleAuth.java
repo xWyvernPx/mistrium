@@ -32,10 +32,16 @@ public class GoogleAuth extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("application/json");
+        response.setHeader("Access-Control-Allow-Credentials", "true");
+        response.setHeader("Access-Control-Allow-Origin", "https://mistrium.vercel.app,http://localhost:3000");
+                response.setHeader("Access-Control-Allow-Method", "GET,POST,PUT,PATCH,OPTIONS");
+
+        response.setHeader(" Access-Control-Allow-Headers", "content-type");
+        
+        
         String clientId = getServletContext().getInitParameter("GG_CLIENT_ID");
         String scope = "email";
         String redirect_uri = getServletContext().getInitParameter("GG_CB_URL");
-        System.out.println(redirect_uri);
         String url = "https://accounts.google.com/o/oauth2/auth?response_type=code&client_id="+clientId+"&scope="+scope+"&redirect_uri="+redirect_uri;
         response.sendRedirect(url);
     }

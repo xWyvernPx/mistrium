@@ -22,8 +22,9 @@ import models.Account;
  * @author WyvernP
  */
 public class AuthHelper {
-
-    static String get_token_url = "https://oauth2.googleapis.com/token?grant_type=authorization_code&client_id=589640365693-7p2e9n7o5t55abl30itolav861h4c3kv.apps.googleusercontent.com&client_secret=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&redirect_uri=https://mistrium.azurewebsites.net/auth/google/callback&code=";
+//    static String redirect_url = "http://localhost:8080/mistrium/auth/google/callback";
+    static String redirect_url = "https://mistrium.azurewebsites.net/auth/google/callback";
+    static String get_token_url = "https://oauth2.googleapis.com/token?grant_type=authorization_code&client_id=589640365693-7p2e9n7o5t55abl30itolav861h4c3kv.apps.googleusercontent.com&client_secret=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&redirect_uri="+redirect_url+"&code=";
     static HttpURLConnection connection = null;
     static String get_profile = "https://www.googleapis.com/oauth2/v3/userinfo?alt=json&access_token=";
      public static void checkAuthAdmin (HttpServletRequest req,HttpServletResponse res) {

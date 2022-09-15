@@ -101,7 +101,7 @@ const UserMenu: React.FC<{ active: boolean }> = ({ active }) => {
       <CustomLink to="/profile/orders">Orders</CustomLink>
       <LogoutLink
         onClick={() =>
-          window.open("http://localhost:8080/mistrium/logout", "_self")
+          window.open(import.meta.env.VITE_BE_URL + "/logout", "_self")
         }
       >
         Logout

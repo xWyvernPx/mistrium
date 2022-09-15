@@ -10,7 +10,7 @@ import useAuth from "../../../_hook/useAuth";
 import { authAPI } from "../../../_api/auth.api";
 import { debounce, sortedUniq } from "lodash";
 import OkFlag from "./OkFlag";
-
+import axiosClient from "../../../_api/axiosClient";
 const loginSchema = yup.object({
   email: yup
     .string()
@@ -72,9 +72,37 @@ const LoginForm: React.FC<{ handleSwitchForm: Function }> = ({
       <CustomSpan>or</CustomSpan>
       <OauthButtons>
         <OauthButton
-          onClick={() =>
-            window.open(import.meta.env.VITE_BE_URL + "auth/google", "_self")
-          }
+          onClick={async () => {
+            // window.open(import.meta.env.VITE_BE_URL + "auth/google", "_self")
+            let xhr = new XMLHttpRequest();
+            xhr.open("GET", import.meta.env.VITE_BE_URL + "auth/google");
+            xhr.setRequestHeader(
+              "Access-Control-Allow-Origin",
+              "https://mistrium.vercel.app,http://localhost:3000"
+            );
+            xhr.setRequestHeader(
+              "Access-Control-Allow-Origin",
+              "https://mistrium.vercel.app,http://localhost:3000"
+            );
+            xhr.setRequestHeader(
+              "Access-Control-Allow-Methods",
+              "GET,PUT,POST,DELETE,PATCH,OPTIONS"
+            );
+            xhr.withCredentials = true;
+            xhr.onreadystatechange = function () {
+              // request completed?
+              if (xhr.readyState !== 4) return;
+
+              if (xhr.status === 200) {
+                // request successful - show response
+                window.open(xhr.responseURL, "_self");
+              } else {
+                // request error
+                console.log("HTTP error", xhr.status, xhr.statusText);
+              }
+            };
+            xhr.send();
+          }}
         >
           <IconBrandGoogle />
         </OauthButton>

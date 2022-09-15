@@ -11,10 +11,10 @@
         <param-name>GG_CLIENT_SECRET</param-name>
         <param-value></param-value>
     </context-param>
-    <context-param>
+<!--    <context-param>
         <param-name>GG_CB_URL</param-name>
-        <param-value></param-value>
-    </context-param>
+        <param-value>http://localhost:8080/mistrium/auth/google/callback</param-value>
+    </context-param>-->
 
     <context-param>
         <param-name>GG_CB_URL</param-name>

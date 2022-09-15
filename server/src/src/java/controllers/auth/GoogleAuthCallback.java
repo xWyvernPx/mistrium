@@ -43,12 +43,21 @@ public class GoogleAuthCallback extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
+                response.setContentType("application/json");
+
+        response.addHeader("Access-Control-Allow-Credentials", "true");
+        response.addHeader("Access-Control-Allow-Origin", "https://mistrium.vercel.app,http://fyip.online");
+        response.setHeader("Access-Control-Allow-Method", "GET,POST,PUT,PATCH,OPTIONS");
+
+//        response.addHeader(" Access-Control-Allow-Headers", "content-type");
+        
+        
         String code = request.getParameter("code");
         String res = AuthHelper.getToken(code);
         // get Token from gg api
         Token tk = GsonAdapter.getInstance().fromJson(res, Token.class);
         //get profile with access token;
+        System.out.println(tk);
         String profile = AuthHelper.getProfile(tk.getId_token(), tk.getAccess_token());
         Profile pf = GsonAdapter.getInstance().fromJson(profile, Profile.class);
         Account acc = accountService.getMe(pf.getEmail());
@@ -57,11 +66,17 @@ public class GoogleAuthCallback extends HttpServlet {
         }
         String jws = JWT.sign(String.valueOf(acc.getId()));
         String parse = JWT.decode(jws);
-        Cookie cookie = new Cookie("access_token",jws);
-        cookie.setPath("/");
-        cookie.setMaxAge(60*60*24);
-        response.addCookie(cookie);
+//        Cookie cookie = new Cookie("access_token",jws);
+//        cookie.setPath("/");
+////  
+//        cookie.setMaxAge(60*60*24);
+//        
+//        response.addCookie(cookie);
+//response.addHeader(parse, parse);
+  response.setHeader("Set-Cookie", "access_token="+jws+"; path=/;SameSite=None; Secure");
+//        response.sendRedirect("http://localhost:3000");
         response.sendRedirect("https://mistrium.vercel.app");
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
