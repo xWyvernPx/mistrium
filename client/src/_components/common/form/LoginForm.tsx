@@ -74,6 +74,8 @@ const LoginForm: React.FC<{ handleSwitchForm: Function }> = ({
         <OauthButton
           onClick={() => {
             window.open(import.meta.env.VITE_BE_URL + "auth/google", "_self");
+            // document.hasStorageAccess();
+            document.requestStorageAccess();
             //   let xhr = new XMLHttpRequest();
             //   xhr.open("GET", import.meta.env.VITE_BE_URL + "auth/google");
             //   xhr.setRequestHeader(

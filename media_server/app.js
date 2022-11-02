@@ -1,13 +1,13 @@
 import express from "express";
-const app = express();
 import ImageKit from "imagekit";
+const app = express();
 const imagekit = new ImageKit({
   publicKey: "public_S6vyU9FG56dNofgzx0hbbBAZGDs=",
   privateKey: "private_1LD3K7nVG8n6LkP08+Lk21zCZ3M=",
   urlEndpoint: "https://ik.imagekit.io/flamefoxeswyvernp",
 });
 app.use(express.json());
-app.get("/sign", (req, res) => {
+app.get("/sign", (req, res, next) => {
   var authentcationParameters = imagekit.getAuthenticationParameters();
   res.send(authentcationParameters);
 });

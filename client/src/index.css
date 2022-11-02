@@ -3,36 +3,36 @@
 @tailwind utilities;
 
 @font-face {
-  font-family: 'Geomanist';
-  src: url('/fonts/Geomanist-Book.otf') format('opentype');
+  font-family: "Geomanist";
+  src: url("https://ik.imagekit.io/flamefoxeswyvernp/mistrium/font/Geomanist-Book_PRXLN3sR-.otf?ik-sdk-version=javascript-1.4.3&updatedAt=1667356516772")
+    format("opentype");
   font-weight: 400;
-
 }
 @font-face {
-  font-family: 'Geomanist';
-  src: url('/fonts/Geomanist-Bold.otf') format('opentype');
+  font-family: "Geomanist";
+  src: url("https://ik.imagekit.io/flamefoxeswyvernp/mistrium/font/Geomanist-Bold_nmOSG7-cH.otf?ik-sdk-version=javascript-1.4.3&updatedAt=1667356516599")
+    format("opentype");
   font-weight: 600;
 }
 @font-face {
-  font-family: 'Geomanist';
-  src: url('/fonts/Geomanist-Medium.otf') format('opentype');
+  font-family: "Geomanist";
+  src: url("https://ik.imagekit.io/flamefoxeswyvernp/mistrium/font/Geomanist-Medium_JATGJQGWG.otf?ik-sdk-version=javascript-1.4.3&updatedAt=1667356516662")
+    format("opentype");
   font-weight: 500;
 }
 
-
 body {
   margin: 0;
-  font-family: 'Geomanist',-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: "Geomanist", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+    "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   scroll-behavior: smooth;
 }
-html{
+html {
   position: relative;
   font-size: 10px;
-
 }
 .admin {
   font-size: unset;
@@ -52,20 +52,20 @@ body {
   height: fit-content;
   /* overflow-x: hidden; */
   /* overflow-y: scroll; */
-  
 }
 body {
--ms-overflow-style: none;
-scrollbar-width: none;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 body::-webkit-scrollbar {
- display: none;
+  display: none;
 }
 body {
   line-height: 1.5;
 }
 
-input ,select{
+input,
+select {
   outline: none;
   border: none;
   background-color: transparent;
@@ -97,38 +97,39 @@ h6 {
   line-height: 1.5;
 }
 h1 {
-    /* font-size: 4.5rem; */
-    font-size: 8rem;
-    list-style: 7.6rem;
+  /* font-size: 4.5rem; */
+  font-size: 8rem;
+  list-style: 7.6rem;
 }
 h2 {
-    font-size: 2.5rem;
+  font-size: 2.5rem;
 }
 /* small-header */
-h3{
+h3 {
   font-size: 2.1rem;
 }
 /* large-title */
-h4{
-    font-size: 1.8rem;
+h4 {
+  font-size: 1.8rem;
 }
 /* small title */
-h5{
+h5 {
   font-size: 1.5rem;
-
 }
 /* content */
-h6,p{
+h6,
+p {
   font-size: 1.8rem;
   font-weight: 400;
   line-height: 2.8rem;
 }
-ul,li {
+ul,
+li {
   list-style: none;
 }
-a{
+a {
   text-decoration: none;
-  color : var(--black)
+  color: var(--black);
 }
 button {
   background-color: transparent;
@@ -140,66 +141,63 @@ button {
   /* min-height: 100vh; */
 }
 :root {
- --black : #000;
- --black-heading:#292019;
- --black-title:#3D3D3F;
- --white : #fff;
- --primary : #C4A586;
- --light-primary : #D9AB82;
- --secondary : #FFF4E8;
- --secondary-pink : #FCEFE9;
-  --secondary-blue : #E8F5FF;
-  --secondary-orange : #FAE2C8;
-  --secondary-green : #E8F5FF;
-  --accent : #FE8432;
-  --gray : #A9A7A6;
-  --gray-light : #d9d7d5;
-  --content-color : #72696A; 
-  --danger : #FF5252;
-  --success : #4CAF50;
-  --warning : #FFC107;
-  
+  --black: #000;
+  --black-heading: #292019;
+  --black-title: #3d3d3f;
+  --white: #fff;
+  --primary: #c4a586;
+  --light-primary: #d9ab82;
+  --secondary: #fff4e8;
+  --secondary-pink: #fcefe9;
+  --secondary-blue: #e8f5ff;
+  --secondary-orange: #fae2c8;
+  --secondary-green: #e8f5ff;
+  --accent: #fe8432;
+  --gray: #a9a7a6;
+  --gray-light: #d9d7d5;
+  --content-color: #72696a;
+  --danger: #ff5252;
+  --success: #4caf50;
+  --warning: #ffc107;
+
   /* typo */
-  --fs-content : 1.8rem;
-  
+  --fs-content: 1.8rem;
+
   /* orther stuff */
   --section-x-padding: 7.5rem;
   --header-height: 8rem;
-  
-  
 }
 @media screen and (max-width: 1279.98px) {
   html {
     font-size: 9px;
   }
-  :root{
+  :root {
     --section-x-padding: 5rem;
   }
-
 }
 @media screen and (max-width: 767.98px) {
-html{
-  font-size: 8px;
-}
-:root{
-  --section-x-padding: 4rem;
-}
+  html {
+    font-size: 8px;
+  }
+  :root {
+    --section-x-padding: 4rem;
+  }
 }
 
 .sticky {
   position: -webkit-sticky;
   position: sticky;
 }
-.disable_scroll{
+.disable_scroll {
   overflow: hidden;
 }
 
 /* animation class  */
 
 .cart_active {
-  right : 0;
+  right: 0;
 }
-.stop_scroll{
+.stop_scroll {
   overflow: hidden;
 }
 input:focus {
