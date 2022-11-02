@@ -127,7 +127,7 @@ const Heaeder = () => {
       <MenuButton onClick={() => setMenuActive(true)}>
         <IconMenu2></IconMenu2>
       </MenuButton>
-      <LogoWrapper src="/imgs/logo.png" />
+      <LogoWrapper src="https://ik.imagekit.io/flamefoxeswyvernp/mistrium/logo_6RFOlWSvS.png?ik-sdk-version=javascript-1.4.3&updatedAt=1667356702755" />
       <NavBarContainer active={menuActive}>
         <IconX
           style={{ cursor: "pointer" }}
