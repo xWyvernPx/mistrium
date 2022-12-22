@@ -58,7 +58,10 @@ const NavFunction = () => {
 
   return (
     <NavFuncContainer>
-      <CustomLink href="http://localhost:3000/admin/account" target={"_self"}>
+      <CustomLink
+        href="https://mistrium.vercel.app/admin/account"
+        target={"_self"}
+      >
         {user?.role && (
           <IconDeviceAnalytics
             style={{ transform: "translateY(5px)" }}
