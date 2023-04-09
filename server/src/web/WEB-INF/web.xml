@@ -18,7 +18,7 @@
 
     <context-param>
         <param-name>GG_CB_URL</param-name>
-        <param-value>https://mistrium.azurewebsites.net/auth/google/callback</param-value>
+        <param-value>http://mistrium.wyvernpserver.tech/auth/google/callback</param-value>
     </context-param>
     <context-param>
         <param-name>SUCCESS_URL</param-name>

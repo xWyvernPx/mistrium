@@ -8,15 +8,12 @@ const axiosClient = axios.create({
   withCredentials: true,
   headers: {
     "Content-Type": "application/json",
-    "Access-Control-Allow-Origin": "http://localhost:3000",
-    "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
-    // Access-Control-Allow-Origin : "*",
   },
-  paramsSerializer: (params) => Qs.stringify(params),
+  paramsSerializer: (params:any) => Qs.stringify(params),
 });
 
-axiosClient.interceptors.request.use(async (config) => config);
-axiosClient.interceptors.response.use((res) => {
+axiosClient.interceptors.request.use(async (config:any) => config);
+axiosClient.interceptors.response.use((res:any) => {
   try {
     if (res) {
       return res.data;
